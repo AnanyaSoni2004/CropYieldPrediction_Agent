@@ -1,0 +1,88 @@
+AGRICULTURAL KNOWLEDGE BASE FOR AGROAGENT
+
+=== RICE CULTIVATION ===
+Rice requires high water availability and grows best in flooded conditions. Optimal temperature is 20-35°C. Soil pH should be 5.5-6.5. Nitrogen requirement is high (80-120 kg/ha). Apply urea in split doses: basal, tillering, and panicle initiation. Best grown in clay or clay-loam soils. Kharif crop in India. Water requirement: 1200-2000mm.
+
+=== WHEAT CULTIVATION ===
+Wheat is a rabi crop requiring cool winters. Optimal temperature: 12-25°C. Soil pH: 6.0-7.5. Well-drained loamy soil is ideal. Apply DAP (Di-Ammonium Phosphate) as basal dose. Nitrogen dose: 100-120 kg/ha. Irrigation required at crown root initiation, tillering, jointing, flowering, and grain filling stages.
+
+=== MAIZE CULTIVATION ===
+Maize needs warm temperatures (21-27°C). Soil pH: 5.8-7.0. Needs well-drained fertile soil. High nitrogen requirement (120-150 kg/ha). Apply zinc sulfate if zinc deficiency is observed. Requires adequate moisture especially at silking and grain fill stages.
+
+=== COTTON CULTIVATION ===
+Cotton grows best at 21-30°C. Soil pH: 6.0-8.0. Deep well-drained black cotton soil is ideal. High potassium requirement. Apply NPK in ratio 120:60:60 kg/ha. Critical growth stages for irrigation: squaring, flowering, and boll development. Bollworm is major pest - use Bt cotton varieties.
+
+=== SUGARCANE CULTIVATION ===
+Sugarcane requires tropical/subtropical climate. Temperature: 20-35°C. High rainfall (1500-2500mm) or irrigation. Soil pH: 6.0-7.5. NPK requirement: 250:60:120 kg/ha. Ratoon crop management is important for economics. Internode length indicates sugar content.
+
+=== CHICKPEA (GRAM) CULTIVATION ===
+Chickpea is a cool-season legume. Optimal temperature: 15-25°C. Tolerates drought well. Soil pH: 6.0-8.0. Well-drained sandy loam soil is best. Low nitrogen requirement due to nitrogen fixation. Phosphorus is critical (60-80 kg/ha). Avoid waterlogging.
+
+=== TOMATO CULTIVATION ===
+Tomatoes need warm weather (18-27°C). Soil pH: 6.0-7.0. Rich, well-drained loamy soil. High potassium need for fruit quality. NPK: 120:60:120 kg/ha. Staking required for indeterminate varieties. Common diseases: early blight, late blight - use copper-based fungicides.
+
+=== FERTILIZER RECOMMENDATIONS ===
+NPK Fertilizers: Nitrogen (N) promotes vegetative growth, Phosphorus (P) supports root development and flowering, Potassium (K) improves fruit quality and disease resistance.
+Urea (46% N): Best for top dressing in split doses.
+DAP (18% N, 46% P2O5): Excellent basal fertilizer.
+MOP/Potash (60% K2O): Apply for fruit and root crops.
+Organic manure (FYM): Apply 10-15 tonnes/ha to improve soil structure.
+Micronutrients: Zinc deficiency common in paddy soils - apply zinc sulfate 25 kg/ha.
+
+=== SOIL MANAGEMENT ===
+Sandy soil: Low water retention. Add organic matter. Best for root vegetables.
+Clay soil: High water retention, poor drainage. Add sand and organic matter. Good for rice.
+Loamy soil: Ideal for most crops. Good water retention and drainage balance.
+Black cotton soil (Vertisol): High clay content, self-mulching. Good for cotton and sorghum.
+Red laterite soil: Low nutrient content, acidic. Add lime to correct pH. Good for cashew, arecanut.
+
+Soil pH Correction:
+- Acidic soil (pH < 6): Apply agricultural lime (CaCO3) at 2-4 tonnes/ha.
+- Alkaline soil (pH > 8): Apply gypsum (CaSO4) or organic matter.
+
+=== INTEGRATED PEST MANAGEMENT (IPM) ===
+Use crop rotation to break pest cycles. Intercropping with trap crops.
+Biological control: Trichogramma for stem borer, NPV for caterpillars.
+Pheromone traps for monitoring pest populations.
+Chemical pesticides as last resort - follow label instructions and safety precautions.
+
+=== IRRIGATION MANAGEMENT ===
+Drip irrigation: 30-50% water saving, best for horticulture.
+Sprinkler irrigation: Suitable for cereals and vegetables, 20-30% saving.
+Flood irrigation: Traditional method for paddy and sugarcane.
+Soil moisture monitoring: Use tensiometers to determine irrigation timing.
+Critical stages: Always ensure adequate water at flowering and grain/fruit fill.
+
+=== CROP ROTATION PRINCIPLES ===
+Rotate nitrogen-fixing legumes (pulses) with heavy feeders (cereals).
+Deep-rooted crops after shallow-rooted crops.
+Avoid same family crops in succession to prevent disease buildup.
+Include cover crops to prevent soil erosion and add organic matter.
+
+=== BANANA CULTIVATION ===
+Banana requires tropical climate (15-35°C). High humidity preferred. Soil pH: 6.0-7.5. Rich, well-drained loamy soil. High potassium requirement. Apply NPK: 200:60:300 g/plant. Suckers selected for planting. Bunch covered after emergence. Major pest: Banana weevil, Sigatoka leaf spot disease.
+
+=== MANGO CULTIVATION ===
+Mango thrives in tropical/subtropical regions. Optimal temperature: 24-27°C. Prefers deep, well-drained soil. pH: 5.5-7.5. Rest period during winter important for flowering. Apply NPK: 500:250:500 g/tree (mature). Control powdery mildew during flowering.
+
+=== COFFEE CULTIVATION ===
+Coffee requires shade and moderate rainfall. Temperature: 15-28°C. Soil pH: 6.0-6.5. Well-drained deep loamy soil. Two varieties: Arabica (shade-grown, high altitude) and Robusta (sun-tolerant, lower altitude). NPK: 40:20:40 g/plant. Borer control critical.
+
+=== WEATHER AND CROP SUITABILITY ===
+High temperature crops: Rice, Cotton, Sugarcane, Maize (>25°C optimal)
+Cool temperature crops: Wheat, Chickpea, Lentil, Peas (<22°C optimal)
+High rainfall crops: Rice, Jute, Coconut (>1500mm)
+Drought tolerant crops: Sorghum, Pearl Millet, Chickpea, Groundnut (<600mm)
+
+=== ORGANIC FARMING ===
+Vermicompost: Excellent nutrient source. Apply 2-3 tonnes/ha. Improves soil biology.
+Biofertilizers: Rhizobium for legumes, Azotobacter for cereals, PSB (Phosphate Solubilizing Bacteria).
+Green manure: Dhaincha, Sunhemp - incorporate before flowering for nitrogen.
+Crop residue management: Incorporate straw instead of burning to improve soil organic carbon.
+
+=== POST-HARVEST MANAGEMENT ===
+Proper drying to safe moisture levels (14% for cereals).
+Clean storage facilities to prevent pest infestation.
+Use hermetic storage bags for small-scale farmers.
+Cold storage for perishables (4-8°C for most vegetables and fruits).
+Grading and sorting for better market prices.

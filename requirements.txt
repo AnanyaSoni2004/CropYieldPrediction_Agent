@@ -1,0 +1,27 @@
+# Core ML & Data
+scikit-learn>=1.4.0
+numpy>=1.26.0
+pandas>=2.2.0
+
+# API Framework
+fastapi>=0.111.0
+uvicorn[standard]>=0.29.0
+pydantic>=2.7.0
+
+# LLM Providers
+groq>=0.9.0
+openai>=1.30.0
+
+# LangGraph Agent Orchestration
+langgraph>=0.1.0
+langchain-core>=0.2.0
+
+# RAG – Vector DB & Embeddings
+chromadb>=0.5.0
+sentence-transformers>=3.0.0
+
+# HTTP (Weather Agent)
+requests>=2.32.0
+
+# Utilities
+python-dotenv>=1.0.0

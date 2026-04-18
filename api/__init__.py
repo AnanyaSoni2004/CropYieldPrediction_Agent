@@ -1,0 +1,1 @@
+"""AgroAgent – FastAPI application package."""
