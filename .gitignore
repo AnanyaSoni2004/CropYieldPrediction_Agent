@@ -1,8 +1,5 @@
-cat > .gitignore << 'EOF'
 __pycache__/
 *.pyc
-*.pkl
 chroma_db/
 .env
 .DS_Store
-EOF
