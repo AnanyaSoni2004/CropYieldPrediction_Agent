@@ -9,7 +9,6 @@ from typing import Any
 
 import requests
 
-OPENWEATHER_API_KEY = os.getenv("OPENWEATHER_API_KEY", "")
 BASE_URL = "https://api.openweathermap.org/data/2.5/weather"
 
 
@@ -22,11 +21,12 @@ class WeatherAgent:
 
         Falls back to mock data when the API key is missing.
         """
-        if not OPENWEATHER_API_KEY:
+        api_key = os.getenv("OPENWEATHER_API_KEY", "")
+        if not api_key:
             return self._mock_weather(location)
 
         try:
-            return self._fetch_live(location)
+            return self._fetch_live(location, api_key)
         except Exception as exc:
             return {**self._mock_weather(location), "warning": str(exc)}
 
@@ -34,10 +34,10 @@ class WeatherAgent:
     # private helpers
     # ------------------------------------------------------------------
 
-    def _fetch_live(self, location: str) -> dict[str, Any]:
+    def _fetch_live(self, location: str, api_key: str) -> dict[str, Any]:
         """Call OpenWeatherMap and normalise the response."""
         params: dict[str, Any] = {
-            "appid": OPENWEATHER_API_KEY,
+            "appid": api_key,
             "units": "metric",
         }
 

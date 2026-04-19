@@ -25,3 +25,7 @@ requests>=2.32.0
 
 # Utilities
 python-dotenv>=1.0.0
+
+# Streamlit Frontend
+streamlit>=1.35.0
+plotly>=5.22.0
