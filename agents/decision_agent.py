@@ -27,6 +27,18 @@ Your task is to recommend a suitable crop ONLY if the environmental conditions a
 
 ---
 
+## STEP 2: STRICT RULE (VERY IMPORTANT)
+
+If input is INVALID:
+
+* Final Recommendation MUST be exactly: "Invalid Input"
+* DO NOT recommend any crop under any circumstances
+* DO NOT support or justify any ML predictions
+* Explicitly state that ML predictions are UNRELIABLE for invalid inputs
+* Ignore all crop suggestions from the model entirely
+
+---
+
 ## STEP 1: INPUT VALIDATION
 
 Carefully evaluate the input parameters:
@@ -98,7 +110,8 @@ Issues Found:
 Environmental Assessment: <Optimal / Suboptimal / Extreme>
 
 Final Recommendation:
-Recommended Crop: <crop name, or "None – no suitable crop for current conditions">
+Recommended Crop: <crop name>
+(If INVALID: this line MUST be exactly "Recommended Crop: Invalid Input")
 
 Reasoning:
 - Soil: <findings>
@@ -106,8 +119,8 @@ Reasoning:
 - Market: <findings>
 
 ML Prediction Review:
-- Status: <Accepted / Rejected>
-- Reason: <why accepted or rejected>
+- Status: <Accepted / Rejected — MUST be "Rejected" if Validation Status is Invalid>
+- Reason: <why accepted or rejected; if Invalid, state "ML prediction is unreliable — input conditions are not valid for any crop growth">
 
 Suggested Fixes:
 - <how to improve soil, temperature, irrigation, etc., or "None required">
@@ -264,18 +277,22 @@ class DecisionAgent:
     @staticmethod
     def _extract_crop(text: str, fallback: str) -> str:
         """Parse 'Recommended Crop:' from the structured LLM output."""
+        validation_failed = False
         for line in text.splitlines():
             stripped = line.strip()
-            # Validation failed — no crop should be recommended
             if re.match(r"validation status\s*:\s*invalid", stripped, re.IGNORECASE):
-                return "Invalid Input"
-            # Explicit no-crop signal
-            if re.match(r"recommended crop\s*:\s*none", stripped, re.IGNORECASE):
-                return "No Suitable Crop"
-            # Normal recommendation
+                validation_failed = True
             m = re.match(r"recommended crop\s*:\s*(.+)", stripped, re.IGNORECASE)
             if m:
-                return m.group(1).strip()
+                value = m.group(1).strip()
+                if validation_failed or re.match(r"invalid input", value, re.IGNORECASE):
+                    return "Invalid Input"
+                if re.match(r"none", value, re.IGNORECASE):
+                    return "No Suitable Crop"
+                return value
+        # If validation failed but no Recommended Crop line was found
+        if validation_failed:
+            return "Invalid Input"
         return fallback
 
     @staticmethod
@@ -316,7 +333,10 @@ class DecisionAgent:
                 f"Issues Found:\n{issue_lines}\n\n"
                 "Environmental Assessment: Extreme\n\n"
                 "Final Recommendation:\n"
-                "Recommended Crop: None – no suitable crop for current conditions\n\n"
+                "Recommended Crop: Invalid Input\n\n"
+                "ML Prediction Review:\n"
+                "- Status: Rejected\n"
+                "- Reason: ML prediction is unreliable — input conditions are not valid for any crop growth.\n\n"
                 "Suggested Fixes:\n"
                 "- Temperature: 0–50°C\n"
                 "- Soil pH: 4–9\n"
