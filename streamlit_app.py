@@ -471,6 +471,12 @@ if page == "Crop Recommendation":
             "ph": ph_val, "rainfall": rain_val,
         }
 
+        from utils.helpers import validate_soil_input
+        valid, soil_error = validate_soil_input(soil_data)
+        if not valid:
+            st.error(f"Invalid input: {soil_error}")
+            st.stop()
+
         with st.spinner("Running multi-agent pipeline: Crop ML > Weather > Market > RAG > LLM Decision"):
             try:
                 run_pipeline = load_orchestrator()

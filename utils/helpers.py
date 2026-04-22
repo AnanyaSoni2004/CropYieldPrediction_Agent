@@ -25,6 +25,12 @@ def validate_soil_input(data: dict) -> tuple[bool, str]:
         if not (lo <= float(val) <= hi):
             return False, f"{field} value {val} is outside valid range [{lo}, {hi}]"
 
+    if float(data["ph"]) == 0:
+        return False, "Soil pH cannot be 0 — it is physically impossible. Typical agricultural soil pH is between 3.5 and 9.5."
+
+    if all(float(data[k]) == 0 for k in ["N", "P", "K", "humidity", "ph"]):
+        return False, "All nutrient, humidity, and pH values are 0. Please enter your actual field measurements."
+
     return True, ""
 
 
