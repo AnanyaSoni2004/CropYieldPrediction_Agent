@@ -95,26 +95,3 @@ def iter_chunks(
             "metadata": {"crop": crop, "chunk_type": "summary"},
         }
         doc_id += 1
-
-    # Individual row chunks
-    for row in rows:
-        crop = row["Crop"]
-        text = (
-            f"{crop}: temperature {row['Temperature (C)']} °C, "
-            f"rainfall {row['Rainfall (mm)']} mm, "
-            f"humidity {row['Humidity (%)']} %, "
-            f"sunlight {row['Sunlight (hours)']} hrs, "
-            f"soil pH {row['Soil pH']}, "
-            f"nitrogen {row['Soil Nitrogen (%)']} %, "
-            f"phosphorus {row['Soil Phosphorus (ppm)']} ppm, "
-            f"potassium {row['Soil Potassium (ppm)']} ppm, "
-            f"altitude {row['Altitude (m)']} m, "
-            f"wind speed {row['Wind Speed (m/s)']} m/s, "
-            f"yield {row['Crop Yield (tons/ha)']} tons/ha."
-        )
-        yield {
-            "id":       f"doc_{doc_id}",
-            "text":     text,
-            "metadata": {"crop": crop, "chunk_type": "record"},
-        }
-        doc_id += 1
