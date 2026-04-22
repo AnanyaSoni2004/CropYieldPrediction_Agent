@@ -333,22 +333,9 @@ def _validate_location(loc: str) -> str | None:
     """Return an error message string if location is invalid, else None."""
     loc = loc.strip()
     if not loc:
-        return "Location cannot be empty."
-    if "," not in loc:
-        return (
-            "Please enter farm coordinates as **'latitude,longitude'** "
-            "(e.g. `28.6139,77.2090`). "
-            "City names are not supported — specific coordinates are required for accurate predictions."
-        )
-    parts = loc.split(",", 1)
-    try:
-        lat, lon = float(parts[0].strip()), float(parts[1].strip())
-    except ValueError:
-        return "Invalid coordinates. Use numeric `lat,lon` format (e.g. `28.6139,77.2090`)."
-    if not (-90 <= lat <= 90):
-        return f"Latitude {lat} is out of valid range (−90 to 90)."
-    if not (-180 <= lon <= 180):
-        return f"Longitude {lon} is out of valid range (−180 to 180)."
+        return "Location cannot be empty. Please enter a city name, e.g. 'Mumbai'."
+    if len(loc) < 2:
+        return f"'{loc}' is too short to be a valid location. Please enter a city name, e.g. 'Mumbai'."
     return None
 
 
@@ -462,9 +449,9 @@ if page == "Crop Recommendation":
         col_loc, col_q = st.columns([1, 2])
         with col_loc:
             location = st.text_input(
-                "Location (lat,lon)",
-                value="28.6139,77.2090",
-                help="Enter farm coordinates as 'latitude,longitude' (e.g. '28.6139,77.2090' for New Delhi). City names are not accepted.",
+                "Location",
+                value="New Delhi",
+                help="Enter a city name, e.g. 'Mumbai', 'London', 'New York'.",
             )
         with col_q:
             user_query = st.text_input("Additional question (optional)", placeholder="e.g. What fertilizer should I apply?")
