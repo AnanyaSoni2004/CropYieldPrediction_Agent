@@ -200,8 +200,9 @@ class DecisionAgent:
                     max_tokens=900,
                 )
                 return resp.choices[0].message.content.strip(), GROQ_MODEL
-            except Exception:
-                pass
+            except Exception as e:
+                print(f"[DecisionAgent] Groq error: {e}")
+                return f"Groq API error: {e}\n\n" + self._fallback_response(user_message), "rule-based-fallback"
 
         if OPENAI_API_KEY:
             try:
@@ -217,8 +218,8 @@ class DecisionAgent:
                     max_tokens=900,
                 )
                 return resp.choices[0].message.content.strip(), OPENAI_MODEL
-            except Exception:
-                pass
+            except Exception as e:
+                print(f"[DecisionAgent] OpenAI error: {e}")
 
         return self._fallback_response(user_message), "rule-based-fallback"
 
