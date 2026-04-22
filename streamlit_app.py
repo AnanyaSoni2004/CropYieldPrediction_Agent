@@ -20,6 +20,7 @@ import pandas as pd
 import numpy as np
 import plotly.express as px
 import plotly.graph_objects as go
+from agents.weather_agent import LocationNotFoundError
 
 # ---------------------------------------------------------------------------
 # Page config (must be first Streamlit call)
@@ -328,6 +329,29 @@ span[data-baseweb="tag"] span {
 # Cached loaders
 # ---------------------------------------------------------------------------
 
+def _validate_location(loc: str) -> str | None:
+    """Return an error message string if location is invalid, else None."""
+    loc = loc.strip()
+    if not loc:
+        return "Location cannot be empty."
+    if "," not in loc:
+        return (
+            "Please enter farm coordinates as **'latitude,longitude'** "
+            "(e.g. `28.6139,77.2090`). "
+            "City names are not supported — specific coordinates are required for accurate predictions."
+        )
+    parts = loc.split(",", 1)
+    try:
+        lat, lon = float(parts[0].strip()), float(parts[1].strip())
+    except ValueError:
+        return "Invalid coordinates. Use numeric `lat,lon` format (e.g. `28.6139,77.2090`)."
+    if not (-90 <= lat <= 90):
+        return f"Latitude {lat} is out of valid range (−90 to 90)."
+    if not (-180 <= lon <= 180):
+        return f"Longitude {lon} is out of valid range (−180 to 180)."
+    return None
+
+
 @st.cache_resource(show_spinner=False)
 def load_orchestrator():
     """Import and warm up the orchestrator (loads ML model + ChromaDB)."""
@@ -437,7 +461,11 @@ if page == "Crop Recommendation":
 
         col_loc, col_q = st.columns([1, 2])
         with col_loc:
-            location = st.text_input("Location", value="New Delhi", help="City name or 'lat,lon'")
+            location = st.text_input(
+                "Location (lat,lon)",
+                value="28.6139,77.2090",
+                help="Enter farm coordinates as 'latitude,longitude' (e.g. '28.6139,77.2090' for New Delhi). City names are not accepted.",
+            )
         with col_q:
             user_query = st.text_input("Additional question (optional)", placeholder="e.g. What fertilizer should I apply?")
 
@@ -445,6 +473,11 @@ if page == "Crop Recommendation":
     submitted = st.button("Get Crop Recommendation", use_container_width=True)
 
     if submitted:
+        loc_error = _validate_location(location)
+        if loc_error:
+            st.error(loc_error)
+            st.stop()
+
         soil_data = {
             "N": n_val, "P": p_val, "K": k_val,
             "temperature": temp_val, "humidity": hum_val,
@@ -459,6 +492,9 @@ if page == "Crop Recommendation":
                     location=location,
                     user_query=user_query,
                 )
+            except LocationNotFoundError as e:
+                st.error(f"Location error: {e}")
+                st.stop()
             except FileNotFoundError as e:
                 st.error(f"Error: {e}")
                 st.info("Run `python models/train_model.py` to generate the ML model artifacts first.")
@@ -471,6 +507,9 @@ if page == "Crop Recommendation":
         crop_result = state["crop_result"]
         weather_result = state["weather_result"]
         market_result = state["market_result"]
+
+        if weather_result.get("warning"):
+            st.warning(f"Weather: {weather_result['warning']}")
 
         st.markdown("---")
 

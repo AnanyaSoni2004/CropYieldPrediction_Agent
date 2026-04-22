@@ -12,21 +12,32 @@ import requests
 BASE_URL = "https://api.openweathermap.org/data/2.5/weather"
 
 
+class LocationNotFoundError(Exception):
+    """Raised when OpenWeatherMap cannot resolve the given location."""
+
+
 class WeatherAgent:
     """Fetches and interprets current weather conditions for a given location."""
 
     def get_weather(self, location: str) -> dict[str, Any]:
         """
-        Return structured weather data for *location* (city name or 'lat,lon').
+        Return structured weather data for *location* ('lat,lon').
 
         Falls back to mock data when the API key is missing.
+        Raises LocationNotFoundError when the API key is present but the
+        location cannot be resolved.
         """
         api_key = os.getenv("OPENWEATHER_API_KEY", "")
         if not api_key:
-            return self._mock_weather(location)
+            return {
+                **self._mock_weather(location),
+                "warning": "No OPENWEATHER_API_KEY set – weather data is simulated.",
+            }
 
         try:
             return self._fetch_live(location, api_key)
+        except LocationNotFoundError:
+            raise
         except Exception as exc:
             return {**self._mock_weather(location), "warning": str(exc)}
 
@@ -50,6 +61,11 @@ class WeatherAgent:
             params["q"] = location
 
         resp = requests.get(BASE_URL, params=params, timeout=10)
+        if resp.status_code == 404:
+            raise LocationNotFoundError(
+                f"Location '{location}' was not found. "
+                "Please enter valid coordinates as 'latitude,longitude' (e.g. '28.6139,77.2090')."
+            )
         resp.raise_for_status()
         data = resp.json()
 
