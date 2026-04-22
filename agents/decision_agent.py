@@ -13,7 +13,7 @@ GROQ_API_KEY  = os.getenv("GROQ_API_KEY", "")
 OPENAI_API_KEY = os.getenv("OPENAI_API_KEY", "")
 
 # Model selection – prefer Groq (free-tier) over OpenAI
-GROQ_MODEL   = "llama3-70b-8192"
+GROQ_MODEL   = "llama-3.3-70b-versatile"
 OPENAI_MODEL = "gpt-4o-mini"
 
 SYSTEM_PROMPT = """You are AgroAgent, an expert agricultural advisory AI.
@@ -95,8 +95,8 @@ class DecisionAgent:
                     max_tokens=800,
                 )
                 return resp.choices[0].message.content.strip(), GROQ_MODEL
-            except Exception as e:
-                return self._fallback_response(user_message) + f"\n\n[Groq Error: {e}]", "groq-error"
+            except Exception:
+                pass
 
         if OPENAI_API_KEY:
             try:

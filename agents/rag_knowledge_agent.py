@@ -11,7 +11,7 @@ from rag.vector_store import VectorStore
 from rag.knowledge_base import iter_chunks
 
 GROQ_API_KEY = os.getenv("GROQ_API_KEY", "")
-GROQ_MODEL   = "llama3-70b-8192"
+GROQ_MODEL   = "llama-3.3-70b-versatile"
 
 RAG_SYSTEM_PROMPT = """You are an expert agricultural knowledge assistant.
 Answer the farmer's question using ONLY the context passages provided.
