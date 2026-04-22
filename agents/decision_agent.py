@@ -95,8 +95,8 @@ class DecisionAgent:
                     max_tokens=800,
                 )
                 return resp.choices[0].message.content.strip(), GROQ_MODEL
-            except Exception:
-                pass
+            except Exception as e:
+                return self._fallback_response(user_message) + f"\n\n[Groq Error: {e}]", "groq-error"
 
         if OPENAI_API_KEY:
             try:
