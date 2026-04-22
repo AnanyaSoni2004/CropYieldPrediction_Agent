@@ -1,0 +1,53 @@
+topic: Wheat Cultivation Guide
+crop: Wheat
+
+## Overview
+Wheat (Triticum aestivum) is the world's most widely cultivated cereal crop and a primary source of carbohydrates and protein. It is a cool-season crop suited to temperate and subtropical climates.
+
+## Ideal Growing Conditions
+- Temperature: 10–25 °C during vegetative growth; 15–20 °C during grain filling. Frost tolerance during early growth, but sensitive at flowering.
+- Rainfall: 450–650 mm well distributed; irrigation critical in drier regions during jointing and grain fill.
+- Humidity: 50–65%; low humidity during ripening improves grain quality and reduces disease.
+- Sunlight: 7–9 hours per day; long days promote heading and maturity.
+- Altitude: Widely grown from 0 to 3000 m; cool highlands are ideal.
+
+## Soil Requirements
+- Soil type: Well-drained loam or clay-loam soils; poor drainage causes root rot.
+- pH: 6.0–7.5; optimal 6.5–7.0.
+- Nitrogen: 100–120 kg N/ha; split doses at sowing, tillering, and booting stages.
+- Phosphorus: 50–60 kg P₂O₅/ha as basal application; promotes root development.
+- Potassium: 40–60 kg K₂O/ha; improves straw strength and disease tolerance.
+
+## Planting Season
+- Rabi (winter) crop in South Asia: October–November sowing, March–April harvest.
+- Temperate regions: Autumn sowing (winter wheat) or spring sowing (spring wheat).
+- Crop duration: 100–150 days depending on variety and location.
+
+## Crop Management
+- Seed rate: 100–125 kg/ha for irrigated; 125–150 kg/ha for rainfed conditions.
+- Seed treatment with carbendazim (2 g/kg) or thiram to prevent seed-borne diseases.
+- First irrigation at crown root initiation stage (21 DAS) is critical.
+- 4–6 irrigations needed under irrigated conditions; avoid waterlogging.
+
+## Common Pests
+- Aphids: Suck sap from leaves and ears; use imidacloprid or dimethoate spray.
+- Termites: Damage roots and stems; apply chlorpyrifos to soil at sowing.
+- Wheat stem sawfly: Causes stem cutting near soil; rotate with non-host crops.
+
+## Common Diseases
+- Yellow rust (Puccinia striiformis): Yellow stripes on leaves; use resistant varieties, apply propiconazole.
+- Brown rust (Puccinia triticina): Orange-brown pustules; apply mancozeb or tebuconazole.
+- Loose smut (Ustilago tritici): Smutted ears instead of grains; use systemic seed treatment (carboxin).
+- Karnal bunt: Partial bunt of grains; use clean certified seed, apply tebuconazole.
+
+## Best Practices
+- Use certified high-yielding varieties (e.g., semi-dwarf varieties with lodging resistance).
+- Balanced fertilization with zinc sulfate (25 kg/ha) on zinc-deficient soils.
+- Weed management: Apply isoproturon + metsulfuron pre-emergence/early post-emergence.
+- Harvest at full maturity (grain moisture ~12–14%) to avoid shattering losses.
+- Proper post-harvest storage to prevent mycotoxin contamination.
+
+## Expected Yield
+- Rainfed: 2–3 tons/ha
+- Irrigated HYV: 4–6 tons/ha
+- High-input irrigated: 6–8 tons/ha

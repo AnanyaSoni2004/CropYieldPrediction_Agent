@@ -1,0 +1,55 @@
+topic: Potato Cultivation Guide
+crop: Potato
+
+## Overview
+Potato (Solanum tuberosum) is a cool-season tuber crop and the fourth most important food crop globally. It is highly versatile, grown from tropical highlands to temperate regions, and is a critical food security crop.
+
+## Ideal Growing Conditions
+- Temperature: 15–20 °C optimal for tuber initiation and bulking; above 30 °C severely reduces tuber formation. Cool nights (10–15 °C) are essential for tuber development.
+- Rainfall: 500–700 mm during the growing season; evenly distributed or supplemented with irrigation.
+- Humidity: 60–80%; high humidity increases late blight risk.
+- Sunlight: 9–10 hours; long days promote vegetative growth; tuber initiation favored by short days and cool nights.
+- Altitude: Performs best at 1000–3000 m in tropical regions; sea level to 500 m in temperate zones.
+
+## Soil Requirements
+- Soil type: Deep, loose, well-drained sandy loam or loam soils; compact or waterlogged soils cause misshapen tubers and rot.
+- pH: 5.0–6.5; slightly acidic soils reduce common scab disease.
+- Nitrogen: 100–150 kg N/ha; excess N delays maturity and reduces starch content.
+- Phosphorus: 80–100 kg P₂O₅/ha; critical for tuber initiation and root development.
+- Potassium: 100–150 kg K₂O/ha; highest K demand of all common crops; K improves tuber size, starch content, and shelf life.
+
+## Planting Season
+- Spring planting in temperate regions: March–April; harvest June–August.
+- Highland tropics: Year-round with two seasons possible.
+- Crop duration: 70–120 days depending on variety (early, medium, late maturity).
+
+## Crop Management
+- Plant certified disease-free seed tubers; 1.5–2 tons/ha seed requirement.
+- Cut large seed tubers into 40–50 g pieces, each with 2–3 eyes; treat cut surfaces with fungicide dust.
+- Spacing: 60–75 cm between rows × 25–30 cm between plants.
+- Earthing up (hilling): 2–3 times during the season to prevent greening of tubers and support stems.
+- Irrigation: Critical during stolon initiation and tuber bulking; avoid water stress and excess moisture.
+
+## Common Pests
+- Colorado potato beetle: Defoliates plants rapidly; use spinosad or imidacloprid.
+- Potato tuber moth: Bores into tubers in field and storage; use pheromone traps, apply spinosad.
+- Aphids: Vector of potato virus Y (PVY) and PLRV; use reflective mulch and imidacloprid seed treatment.
+- Nematodes (Globodera spp.): Potato cyst nematode; use resistant varieties, crop rotation.
+
+## Common Diseases
+- Late blight (Phytophthora infestans): Most devastating disease; dark water-soaked lesions on leaves and brown rot in tubers; apply mancozeb or metalaxyl-M preventively; use resistant varieties.
+- Early blight (Alternaria solani): Concentric ring lesions; apply chlorothalonil; ensure balanced nutrition.
+- Common scab (Streptomyces scabies): Corky lesions on tuber skin; maintain soil pH below 5.5, use resistant varieties.
+- Blackleg (Pectobacterium atrosepticum): Stem blackening and wilting; use certified seed, avoid waterlogging.
+
+## Best Practices
+- Always plant certified seed tubers — most diseases are seed-borne.
+- Avoid planting in fields with history of scab, cyst nematode, or Verticillium wilt.
+- Rotate with cereals or legumes — minimum 3-year rotation before replanting potato.
+- Destroy volunteer plants and cull piles to reduce disease inoculum.
+- Harvest when skin is set (rub test); cure in the dark at 10–15 °C before storage.
+
+## Expected Yield
+- Traditional varieties: 15–20 tons/ha
+- Improved varieties: 25–35 tons/ha
+- High-input commercial production: 40–60 tons/ha

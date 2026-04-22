@@ -1,0 +1,51 @@
+topic: Rice Cultivation Guide
+crop: Rice
+
+## Overview
+Rice (Oryza sativa) is a semi-aquatic cereal crop and a staple food for more than half the world's population. It thrives in warm, humid tropical and subtropical climates with abundant water availability.
+
+## Ideal Growing Conditions
+- Temperature: 20–35 °C; optimal 25–30 °C during growing season. Temperatures above 35 °C during flowering reduce grain set.
+- Rainfall: 1000–2000 mm per season; requires consistent moisture throughout growth.
+- Humidity: 60–80% relative humidity favors healthy growth.
+- Sunlight: 6–10 hours of direct sunlight per day; high solar radiation improves yield.
+- Altitude: Best grown at 0–600 m above sea level; some varieties suit up to 2000 m.
+
+## Soil Requirements
+- Soil type: Clayey or loamy soils with good water-retention capacity; paddy soils preferred.
+- pH: 5.0–7.0; optimal 5.5–6.5 (slightly acidic).
+- Nitrogen: High demand — 80–120 kg N/ha in split doses (basal + tillering + panicle initiation).
+- Phosphorus: 40–60 kg P₂O₅/ha; applied as basal dose.
+- Potassium: 40–80 kg K₂O/ha; important for stalk strength and disease resistance.
+
+## Planting Season
+- Tropical Asia: Kharif (June–July transplanting, November harvest); Rabi (November planting, March harvest) under irrigation.
+- Nursery: Raise seedlings for 25–30 days before transplanting.
+- Crop duration: 90–150 days depending on variety (short, medium, long duration).
+
+## Water Management
+- Paddy rice requires 2–5 cm standing water during vegetative and reproductive stages.
+- Alternate wetting and drying (AWD) technique can save 30% water without yield loss.
+- Drain fields 10–15 days before harvest to allow soil to firm up.
+
+## Common Pests
+- Brown planthopper (BPH): Causes "hopperburn"; manage with resistant varieties and avoid excess nitrogen.
+- Stem borer: Deadheart in vegetative stage; whiteear at reproductive stage. Use light traps, biological control.
+- Gall midge: Silvershoot symptom; plant early, use resistant varieties.
+
+## Common Diseases
+- Blast (Magnaporthe oryzae): Most destructive fungal disease; appears as diamond-shaped lesions on leaves and neck. Use resistant varieties, avoid excess N, apply tricyclazole fungicide.
+- Bacterial leaf blight (Xanthomonas oryzae): Yellowing from leaf tips; use resistant varieties, balanced fertilization.
+- Sheath blight: Manage with hexaconazole or validamycin; avoid dense planting.
+
+## Best Practices
+- Use certified seeds of high-yielding varieties (HYV) or hybrids.
+- Maintain proper plant spacing (20×15 cm) to reduce disease and improve light interception.
+- Integrated nutrient management: combine organic manure with chemical fertilizers.
+- Weed management: Apply pre-emergence herbicide (butachlor) within 3 days of transplanting.
+- Monitor for zinc deficiency (khaira disease) — apply zinc sulfate at 25 kg/ha if needed.
+
+## Expected Yield
+- Traditional varieties: 2–4 tons/ha
+- HYV under irrigated conditions: 5–8 tons/ha
+- Hybrid rice: 8–12 tons/ha

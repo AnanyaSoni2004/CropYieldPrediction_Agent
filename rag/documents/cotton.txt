@@ -1,0 +1,61 @@
+topic: Cotton Cultivation Guide
+crop: Cotton
+
+## Overview
+Cotton (Gossypium hirsutum, G. barbadense) is the world's most important natural fiber crop and a major oilseed crop. It is a tropical and subtropical perennial grown as an annual. Cotton has high economic value but requires intensive management.
+
+## Ideal Growing Conditions
+- Temperature: 21–35 °C; optimal 25–30 °C. Frost-sensitive; requires at least 180 frost-free days. High temperature (>38 °C) during boll development causes shedding.
+- Rainfall: 700–1200 mm during growing season; well-distributed. Dry weather during boll opening is essential for fiber quality.
+- Humidity: 50–70% during vegetative phase; low humidity (40–50%) during boll opening improves lint quality.
+- Sunlight: 8–10 hours; cotton is a short-day plant for floral initiation under natural conditions.
+- Altitude: Best below 1000 m; warm lowlands and river valleys are ideal.
+
+## Soil Requirements
+- Soil type: Deep, well-drained clay loam or black cotton soils (vertisols) preferred; tolerates moderately alkaline soils.
+- pH: 6.0–8.0; tolerant of mild alkalinity, but performs best at 6.5–7.5.
+- Nitrogen: 80–120 kg N/ha; excess N delays maturity and promotes vegetative growth (rank growth).
+- Phosphorus: 40–60 kg P₂O₅/ha as basal.
+- Potassium: 40–80 kg K₂O/ha; important for boll development and fiber strength.
+
+## Planting Season
+- India/Pakistan: May–June sowing with monsoon; harvest November–January.
+- USA (Cotton Belt): April–May planting; harvest September–November.
+- Crop duration: 150–180 days.
+
+## Crop Management
+- Seed rate: 2–3 kg/ha (delinted, dressed) at 90×30–45 cm spacing.
+- Bt cotton varieties are dominant in most major producing countries for bollworm control.
+- Topping (removal of terminal bud): Practiced in some regions to improve boll opening; not universally recommended.
+- Defoliation: Chemical defoliation (thidiazuron or ethephon) before mechanical harvest to improve efficiency and fiber quality.
+- Irrigation: Critical at squaring, flowering, and boll development stages; avoid waterlogging.
+
+## Common Pests
+- Pink bollworm (Pectinophora gossypiella): Bores into bolls; most damaging; use Bt varieties, pheromone traps.
+- American bollworm (Helicoverpa armigera): Feeds on squares, flowers, and bolls; monitor with pheromone traps; use Bt sprays or synthetic pyrethroids.
+- Whitefly (Bemisia tabaci): Causes sooty mold via honeydew; vector of cotton leaf curl virus; use imidacloprid or thiamethoxam seed treatment.
+- Aphids: Transmit diseases; use systemic insecticides.
+- Jassid (leafhopper): Causes hopper burn; select hairy leaf varieties.
+
+## Common Diseases
+- Cotton leaf curl disease (CLCuD): Viral disease vectored by whitefly; upward leaf curling, thickened veins; use tolerant varieties, control whitefly.
+- Bacterial blight (Xanthomonas citri subsp. malvacearum): Angular leaf spots and boll rot; use resistant varieties, copper bactericide.
+- Fusarium and Verticillium wilt: Vascular diseases; use resistant varieties, soil solarization, crop rotation.
+- Root rot (Pythium, Rhizoctonia): Damping-off in seedlings; seed treatment with metalaxyl.
+
+## Fiber Quality Factors
+- Staple length, strength, and micronaire (fineness) are key quality parameters.
+- Water stress during boll fill reduces fiber length; nitrogen excess reduces micronaire.
+- High humidity at harvest reduces grade due to microbial contamination.
+
+## Best Practices
+- Use certified Bt hybrid seed for bollworm management and yield advantage.
+- Rotate cotton with wheat, sorghum, or groundnut to break pest and disease cycles.
+- Monitor for secondary pests (mites, aphids) that increase after broad-spectrum insecticide use.
+- Avoid excessive nitrogen; use split application to prevent rank growth.
+- Harvest at 60–70% boll opening to optimize quality.
+
+## Expected Yield
+- Rainfed traditional: 500–800 kg lint/ha
+- Irrigated improved: 1200–1800 kg lint/ha
+- High-yielding hybrids (Bt) under good management: 1800–2500 kg lint/ha

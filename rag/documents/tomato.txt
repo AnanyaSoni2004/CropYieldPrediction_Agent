@@ -1,0 +1,62 @@
+topic: Tomato Cultivation Guide
+crop: Tomato
+
+## Overview
+Tomato (Solanum lycopersicum) is the world's most widely grown vegetable crop by value. It is a warm-season crop grown for fresh consumption and processing. Tomatoes are highly input-responsive and can yield very high returns when managed well.
+
+## Ideal Growing Conditions
+- Temperature: 20–27 °C optimal for fruit development; below 10 °C causes chilling injury and poor fruit set; above 35 °C causes flower drop and blossom end rot.
+- Rainfall: 600–1200 mm per season; consistent moisture critical — irregular watering causes blossom end rot and cracking.
+- Humidity: 40–70%; high humidity (>80%) promotes fungal diseases and reduces pollination efficiency.
+- Sunlight: 8–10 hours of direct sunlight; adequate light essential for fruit color and sugar accumulation.
+- Altitude: Sea level to 2000 m; cooler highland climates often produce higher quality fruit.
+
+## Soil Requirements
+- Soil type: Well-drained, deep loamy soils rich in organic matter; pH-sensitive crop.
+- pH: 6.0–7.0; optimal 6.2–6.8.
+- Nitrogen: 100–150 kg N/ha; excess N promotes vegetative growth at expense of fruit; fertigated in small, frequent doses.
+- Phosphorus: 80–100 kg P₂O₅/ha; important for root development and fruit set.
+- Potassium: 150–200 kg K₂O/ha; highest K requirement among common vegetables; K improves fruit firmness, color, and shelf life.
+- Calcium and Magnesium: Essential micronutrients; Ca deficiency causes blossom end rot; Mg deficiency causes interveinal chlorosis.
+
+## Planting Season
+- Tropical/subtropical lowlands: October–January (avoiding peak summer).
+- Temperate regions: Spring transplanting after last frost; greenhouse production year-round.
+- Nursery period: 25–30 days before transplanting.
+- Crop duration: 90–150 days from transplanting.
+
+## Crop Management
+- Transplant hardened seedlings at 4–6 leaf stage; spacing 60×45 cm (indeterminate) or 60×30 cm (determinate).
+- Staking and pruning: Essential for indeterminate varieties to improve air circulation, light penetration, and fruit quality.
+- Mulching: Reduces soil moisture loss, suppresses weeds, prevents soil splash (disease spread).
+- Drip irrigation + fertigation: Ideal delivery method for water and nutrients.
+- Pollination: Shake plants or use bumblebees in greenhouse to improve fruit set.
+
+## Common Pests
+- Tomato fruit borer (Helicoverpa armigera): Most damaging pest; bores into fruits; use pheromone traps, spinosad, or Bt sprays.
+- Whitefly (Bemisia tabaci): Vectors of Tomato Yellow Leaf Curl Virus (TYLCV); use yellow sticky traps, imidacloprid.
+- Spider mites: Cause bronzing of leaves in dry conditions; use acaricides (abamectin) or increase humidity.
+- Leafminer: Serpentine mines on leaves; use abamectin or spinosad.
+
+## Common Diseases
+- Early blight (Alternaria solani): Dark concentric ring spots; apply chlorothalonil or mancozeb.
+- Late blight (Phytophthora infestans): Water-soaked lesions expanding rapidly; use metalaxyl-M; critical in humid conditions.
+- Tomato mosaic virus / TYLCV: Yellowing, curling, stunting; control whitefly vectors; use resistant varieties.
+- Fusarium wilt: Vascular browning; use resistant varieties, soil solarization.
+- Bacterial speck/spot: Water-soaked spots; use copper-based bactericides, avoid overhead irrigation.
+
+## Nutritional Disorders
+- Blossom end rot: Dark, leathery patch at blossom end — caused by calcium deficiency or irregular watering; foliar calcium spray + consistent irrigation.
+- Fruit cracking: Sudden heavy irrigation after drought; mulch and maintain even soil moisture.
+- Magnesium deficiency: Interveinal chlorosis on older leaves; apply Epsom salt (MgSO₄) foliar spray.
+
+## Best Practices
+- Use resistant or tolerant varieties for major diseases (Fusarium, TYLCV, nematodes).
+- Crop rotation: Avoid planting after other Solanaceae (potato, eggplant, pepper) for at least 2 years.
+- Sanitation: Remove and destroy infected plant material promptly.
+- Harvest at breaker stage for long-distance transport; vine-ripe for local/fresh market.
+
+## Expected Yield
+- Open-field traditional: 15–25 tons/ha
+- Open-field with good management: 40–60 tons/ha
+- Greenhouse/protected cultivation: 100–200 tons/ha

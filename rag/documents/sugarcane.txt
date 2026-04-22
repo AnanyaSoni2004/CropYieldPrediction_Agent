@@ -1,0 +1,63 @@
+topic: Sugarcane Cultivation Guide
+crop: Sugarcane
+
+## Overview
+Sugarcane (Saccharum officinarum) is a tall perennial grass grown in tropical and subtropical regions for sugar, ethanol, and bagasse. It is one of the most efficient converters of solar energy into chemical energy (sucrose) and produces the highest biomass per unit area among major crops.
+
+## Ideal Growing Conditions
+- Temperature: 20–35 °C; optimal 25–30 °C. Warm temperatures during germination and growth; cooler and dry conditions during ripening to accumulate sucrose.
+- Rainfall: 1000–1500 mm per year; well distributed, with a dry spell of 2–3 months before harvest to improve juice purity.
+- Humidity: 60–80% during vegetative phase; low humidity during ripening is favorable.
+- Sunlight: 7–9 hours of bright sunshine per day; sugarcane is a C4 plant with very high photosynthetic efficiency.
+- Altitude: Best grown at 0–900 m; subtropical regions at 20–35° latitude are highly suitable.
+
+## Soil Requirements
+- Soil type: Deep, well-drained loamy soils; tolerates a wide range of soils but not waterlogging.
+- pH: 6.0–7.5; optimal 6.5–7.0.
+- Nitrogen: 150–250 kg N/ha; high N demand due to long crop duration and high biomass.
+- Phosphorus: 60–80 kg P₂O₅/ha; applied at planting.
+- Potassium: 100–150 kg K₂O/ha; K is critical for sugar translocation, stalk development, and disease resistance.
+
+## Planting Season
+- Tropical India/Brazil: Plant February–March (spring) or October–November (autumn); plant cane ratoons managed for 2–3 cycles.
+- Harvest: 10–18 months after planting depending on region and variety.
+- Ratoon crop: After first harvest, regrowth managed for 2–3 subsequent crops.
+
+## Crop Management
+- Planting: Sett planting (2–3 budded stem sections) at 90–120 cm row spacing.
+- Seed rate: 8–10 tons of setts per hectare.
+- Trashing: Remove dried leaves periodically to improve aeration and reduce pest habitat.
+- Propping: Stake leaning stalks to prevent lodging.
+- Irrigation: 1500–2500 mm total water needed; furrow or drip irrigation common; avoid drought stress during grand growth period.
+- Detrashing and earthing up at 45–60 days after planting.
+
+## Common Pests
+- Sugarcane borer (Diatraea saccharalis): Bores into internodes causing deadheart and rind tunneling; use Trichogramma wasps (biocontrol), carbofuran.
+- Woolly aphid (Ceratovacuna lanigera): Colonies on underside of leaves; use dimethoate or apply water sprays.
+- Root borer (Emmalocera depressella): Attacks roots and underground portion; apply chlorpyrifos in furrows.
+- Rats: Cause significant losses in many regions; bait stations and cultural controls.
+
+## Common Diseases
+- Red rot (Colletotrichum falcatum): Most destructive disease; red internal discoloration with white patches; use disease-free setts, resistant varieties.
+- Smut (Sporisorium scitamineum): Whip-like smut shoots; rogue infected plants immediately; use smut-resistant varieties.
+- Grassy shoot disease (phytoplasma): Multiple thin shoots with no economic yield; spread by leafhoppers; rogue infected plants, control vectors.
+- Wilt (Fusarium sacchari): Stalks shrink and dry; use disease-free setts, avoid waterlogging.
+- Ratoon stunting disease (Leifsonia xyli): Reduces juice quality and yield silently; hot water treatment of setts (50 °C, 2 hours) before planting.
+
+## Harvesting and Processing
+- Harvest when sugar content (Brix) is maximum — typically in dry, cool months.
+- Manual or mechanical harvesting; burn or green-harvest (burnt cane reduces environmental impact but green cane is better for soil health).
+- Deliver cane to mill within 24–48 hours to prevent sucrose inversion.
+
+## Best Practices
+- Use disease-free, certified seed material from approved nurseries.
+- Hot water sett treatment eliminates most seed-borne diseases.
+- Intercropping with legumes in early stages (0–3 months) improves nitrogen supply and income.
+- Minimum 3-year gap before replanting on the same land to avoid soil-borne disease buildup.
+- Apply trash mulch (5 tons/ha) to conserve moisture and suppress weeds in ratoon crops.
+
+## Expected Yield
+- Traditional varieties, rainfed: 50–70 tons/ha cane
+- Improved varieties, irrigated: 80–110 tons/ha cane
+- High-yielding under optimal management: 120–150 tons/ha cane
+- Sucrose recovery: 10–12% of cane weight

@@ -1,0 +1,66 @@
+topic: Peanut (Groundnut) Cultivation Guide
+crop: Peanut
+
+## Overview
+Peanut, also called groundnut (Arachis hypogaea), is a warm-season legume grown primarily for edible oil, protein-rich food, and animal feed. Like soybean, it fixes atmospheric nitrogen. It is a geocarpic plant — pods develop underground after aerial flowering.
+
+## Ideal Growing Conditions
+- Temperature: 25–35 °C; optimal 28–30 °C. Frost-sensitive. Soil temperature at planting should be at least 18 °C for good germination.
+- Rainfall: 500–700 mm during growing season; good moisture during pegging and pod fill critical; dry conditions at harvest preferred.
+- Humidity: 50–70%; high humidity promotes leaf diseases and aflatoxin risk.
+- Sunlight: 8–10 hours of bright sunshine; full sun essential for pod development.
+- Altitude: 0–1500 m; best in warm tropical and subtropical lowlands.
+
+## Soil Requirements
+- Soil type: Light, well-drained sandy loam or loamy sand; loose soil essential for pegs to penetrate and pods to develop properly. Heavy clay soils restrict pod development.
+- pH: 5.8–7.0; optimal 6.0–6.5.
+- Calcium: Critical for pod fill — apply gypsum (500 kg/ha) broadcast at pegging stage; Ca deficiency causes "pops" (empty pods).
+- Nitrogen: Minimal external N needed if inoculated with Bradyrhizobium; 15–20 kg N/ha as starter dose.
+- Phosphorus: 40–60 kg P₂O₅/ha; promotes rooting and pod development.
+- Potassium: 40–60 kg K₂O/ha.
+
+## Planting Season
+- India/West Africa: June–July (Kharif); harvest October–November.
+- USA: April–May; harvest August–October.
+- Crop duration: 90–130 days depending on type (runner, virginia, spanish, valencia).
+
+## Crop Management
+- Seed rate: 80–120 kg/ha; plant shelled seeds or whole pods at 30×10 cm spacing.
+- Inoculate with Bradyrhizobium for nitrogen fixation.
+- Earthing up/hilling: At 30 and 45 days after planting to facilitate peg penetration into soil.
+- Gypsum application at pegging (40–45 DAS) is critical for pod fill and preventing bud necrosis.
+- Avoid irrigation during last 2–3 weeks before harvest to allow pod maturity and ease of harvesting.
+
+## Common Pests
+- Thrips (Frankliniella schultzei): Vector of Groundnut bud necrosis disease (GBNV/TSWV); use imidacloprid seed treatment; control at early stages.
+- Leaf miner (Aproaerema modicella): Mines into leaflets causing drying; use quinalphos or dimethoate.
+- White grubs (Holotrichia spp.): Soil pest feeding on roots; apply chlorpyrifos at sowing.
+- Pod borer: Bores into maturing pods; monitor and apply insecticide.
+- Red hairy caterpillar: Mass defoliation; mechanical collection in early stages; use chlorpyrifos.
+
+## Common Diseases
+- Early leaf spot (Cercospora arachidicola): Circular brown spots; apply chlorothalonil or mancozeb at 15-day intervals from 30 DAS.
+- Late leaf spot (Cercosporidium personatum): Darker, circular lesions; same management as early leaf spot.
+- Groundnut rosette virus: Transmitted by aphids; severe mosaic and stunting; use resistant varieties, control aphids.
+- Collar rot (Aspergillus niger): Blackening at collar region; treat seed with thiram + carbendazim.
+- Aflatoxin (Aspergillus flavus): Toxin contamination especially under drought stress at pod fill; use drought-tolerant varieties; harvest on time; dry properly to <9% moisture.
+
+## Aflatoxin Management — Critical
+- Drought stress during pod fill dramatically increases aflatoxin risk.
+- Irrigate during late pod fill if rainfall is insufficient.
+- Harvest promptly at maturity — delays increase contamination.
+- Dry pods to <9% moisture within 48 hours of harvest.
+- Store in cool, dry, ventilated conditions.
+
+## Best Practices
+- Use certified disease-free seed; treat with fungicide+insecticide combination.
+- Gypsum application is non-negotiable — commonly neglected and causes significant yield loss.
+- Practice 2–3 year crop rotation with cereals; avoid following soybean (shared diseases).
+- Monitor for thrips from emergence — GBNV/TSWV infection in first 3 weeks causes most yield loss.
+- Do not peel or crack pods for testing at harvest — use the floatation test or color charts.
+
+## Expected Yield
+- Traditional/rainfed without inputs: 800–1200 kg/ha
+- Improved varieties with good management: 1800–2500 kg/ha
+- High-yield irrigated: 3000–4000 kg/ha
+- Oil content: 44–56%; protein content: 22–30%

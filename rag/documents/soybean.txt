@@ -1,0 +1,67 @@
+topic: Soybean Cultivation Guide
+crop: Soybean
+
+## Overview
+Soybean (Glycine max) is the world's most important oilseed and protein crop. It fixes atmospheric nitrogen through Bradyrhizobium japonicum symbiosis, making it highly valuable in crop rotations. Soybean is used for oil, meal, animal feed, biofuel, and direct human consumption.
+
+## Ideal Growing Conditions
+- Temperature: 20–30 °C; optimal 25–28 °C. Sensitive to frost; temperatures above 35 °C during flowering and pod fill reduce yield.
+- Rainfall: 450–700 mm during growing season; critical moisture at flowering and pod development.
+- Humidity: 60–70%; moderate humidity preferred.
+- Sunlight: 8–10 hours; soybean is a short-day plant — day length controls flowering; choose varieties adapted to local latitude.
+- Altitude: 0–1800 m; warm lowlands and mid-altitudes most productive.
+
+## Soil Requirements
+- Soil type: Well-drained loam or sandy loam; tolerates a range but not waterlogging or very sandy soils.
+- pH: 6.0–7.0; optimal 6.2–6.8. Below pH 5.5, nodulation is severely impaired.
+- Nitrogen: Minimal external N needed if inoculated with Bradyrhizobium (fixes 100–300 kg N/ha); apply small starter dose of 20 kg N/ha only.
+- Phosphorus: 40–60 kg P₂O₅/ha; adequate P is essential for nodulation and seed development.
+- Potassium: 40–80 kg K₂O/ha; K supports water regulation and disease tolerance.
+- Sulfur: 20–30 kg S/ha important for protein and oil synthesis.
+
+## Planting Season
+- Brazil (Cerrado): October–November; harvest February–March.
+- USA (Corn Belt): May–June; harvest September–October.
+- India (Kharif): June–July (monsoon onset); harvest October–November.
+- Crop duration: 90–130 days depending on maturity group (MG 000 to MG X).
+
+## Inoculation — Critical Step
+- Seed inoculation with Bradyrhizobium japonicum is essential on first-time soybean fields.
+- Use fresh inoculant; mix with seeds in shade just before planting; avoid exposure to direct sunlight.
+- Effective nodulation (pink nodules on roots) = nitrogen self-sufficiency.
+
+## Crop Management
+- Seed rate: 60–80 kg/ha; spacing 45 cm × 5 cm (450,000–500,000 plants/ha).
+- Inoculate seed with Rhizobium before planting.
+- Minimal tillage and no-till soybean systems are widely practiced in Brazil and USA.
+- Avoid excessive soil disturbance to preserve Bradyrhizobium populations.
+
+## Common Pests
+- Soybean stem fly: Larvae mine into stems; use seed treatment with thiamethoxam.
+- Soybean looper (Chrysodeixis includens): Defoliates; use Bacillus thuringiensis (Bt) or lambda-cyhalothrin.
+- Stink bugs (Nezara viridula): Pierce pods and seeds; use pyrethroids at pod-fill stage.
+- Whitefly: Vectors of Bean golden mosaic virus; use imidacloprid.
+
+## Common Diseases
+- Soybean rust (Phakopsora pachyrhizi): Most economically important fungal disease in tropics; apply triazole fungicides preventively; use tolerant varieties.
+- Bacterial pustule (Xanthomonas axonopodis): Pale green spots on leaves with raised centers; use copper bactericides.
+- Phytophthora root and stem rot: Damping-off and stem canker; use metalaxyl seed treatment, resistant varieties.
+- Sudden death syndrome (Fusarium virguliforme): Foliar symptoms from root rot; improve drainage, use seed treatment.
+- Frogeye leaf spot: Circular gray spots; apply strobilurin fungicide.
+
+## Nitrogen Fixation Benefits
+- Well-nodulated soybean fixes 150–300 kg N/ha per season.
+- Residual nitrogen benefits the following cereal crop (40–60 kg N/ha equivalent).
+- Excellent rotation partner for maize, wheat, and rice.
+
+## Best Practices
+- Always inoculate on first soybean planting or after long gaps; re-inoculate if previous crop failed.
+- Use maturity group adapted to local latitude for optimal photoperiod response.
+- Scout for rust from R1 (first flower) stage — preventive fungicide timing is critical.
+- Harvest at 13–14% moisture to minimize seed damage; pod shatter increases above 14%.
+- Avoid soil compaction — soybean roots and nodules are sensitive.
+
+## Expected Yield
+- Low input/traditional: 1–2 tons/ha
+- Improved varieties with good management: 2.5–3.5 tons/ha
+- High-yield systems (Brazil, USA): 3.5–5 tons/ha

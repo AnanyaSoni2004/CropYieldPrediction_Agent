@@ -43,7 +43,7 @@ START
 └─────────┬───────────┘
           ▼
 ┌─────────────────────┐
-│  RAG Knowledge       │  ← ChromaDB semantic search over agricultural_knowledge.txt
+│  RAG Knowledge       │  ← ChromaDB semantic search over rag/documents/ (9 crop guides)
 │  Agent               │  → relevant cultivation context for the predicted crop
 └─────────┬───────────┘
           ▼
@@ -140,15 +140,18 @@ Where: `demand_score` = high:3, medium:2, low:1 and `trend_score` = rising:2, st
 **File:** `agents/rag_knowledge_agent.py`
 
 **What it does:**
-1. On first run, ingests `data/agricultural_knowledge.txt` into ChromaDB
-   - Parses by section headers (`=== TOPIC ===`)
-   - Applies sliding-window chunking (400 words, 50-word overlap) for long sections
+1. On first run, ingests crop knowledge documents from `rag/documents/` into ChromaDB
+   - Each `.txt` file is a dedicated agronomic guide for one crop
+   - Split on `## ` section headers — each section becomes one chunk (ideal growing conditions, soil requirements, pests, diseases, best practices, expected yield)
    - Embeds using `all-MiniLM-L6-v2` (runs fully offline, no API key needed)
+   - Produces ~96 focused chunks across 9 crops
 2. For queries, performs semantic search and returns top-N passages
 3. If `GROQ_API_KEY` is available → generates a synthesised answer via LLaMA-3
 4. If no LLM → returns the most relevant raw passage as an extractive answer
 
-**Knowledge base topics:** Rice, Wheat, Maize, Cotton, Sugarcane, Chickpea, Tomato, Banana, Mango, Coffee, Fertilizer Recommendations, Soil Management, IPM, Irrigation, Crop Rotation, Organic Farming, Post-Harvest Management
+**Knowledge base crops:** Rice, Wheat, Maize, Potato, Tomato, Cotton, Sugarcane, Soybean, Peanut
+
+**Why documents instead of the training dataset:** The knowledge documents contain real agronomic expertise (pest management, soil science, planting calendars, best practices) that the LLM can reason over. Feeding the training CSV into RAG was redundant — the Random Forest already learned the statistical relationships from that data, so converting it back into text summaries added no new information.
 
 ---
 
@@ -158,21 +161,25 @@ Where: `demand_score` = high:3, medium:2, low:1 and `trend_score` = rising:2, st
 
 **What it does:**
 - Receives outputs from all 4 previous agents
-- Constructs a structured prompt with sections: `=== CROP PREDICTION AGENT ===`, `=== WEATHER AGENT ===`, `=== MARKET AGENT ===`, `=== RAG KNOWLEDGE BASE ===`
-- Calls LLM with system prompt requiring this response format:
+- **The RF model's top prediction is the authoritative recommended crop.** The LLM's role is to validate the input, explain the recommendation, and surface agronomic caveats — it does not substitute its own crop choice.
+- The LLM can only block the RF prediction in two cases: input is genuinely invalid (e.g. temperature 200°C, pH 0) or no crop is suitable at all
+- Calls LLM with a structured prompt requiring:
 
 ```
-Recommended Crop: <crop>
-
+Validation Status: <Valid / Invalid>
+Issues Found: <list or "None">
+Environmental Assessment: <Optimal / Suboptimal / Extreme>
+Final Recommendation:
+  Recommended Crop: <crop>
 Reasoning:
-- Soil analysis: <findings>
-- Weather conditions: <findings>
-- Market trends: <findings>
-
-Additional Advice:
-- Fertilizer usage: <advice>
-- Best practices: <advice>
-- Risk mitigation: <advice>
+  - Soil: <findings>
+  - Weather: <findings>
+  - Market: <findings>
+ML Prediction Review:
+  - Status: <Confirmed / Caveats>
+  - Reason: <suitability explanation or caveats>
+Suggested Fixes: <improvement suggestions or "None required">
+Confidence Level: <High / Medium / Low>
 ```
 
 **LLM priority:** Groq LLaMA-3-70b → OpenAI GPT-4o-mini → Rule-based fallback
@@ -203,7 +210,17 @@ CropYieldPrediction_Agent/
 ├── rag/                             # Retrieval-Augmented Generation
 │   ├── __init__.py                  # Exports VectorStore, iter_chunks
 │   ├── vector_store.py              # ChromaDB client (cosine similarity)
-│   └── knowledge_base.py            # Text → chunks with sliding window
+│   ├── knowledge_base.py            # Reads documents/ → section-level chunks
+│   └── documents/                   # Agronomic knowledge guides (one .txt per crop)
+│       ├── rice.txt
+│       ├── wheat.txt
+│       ├── maize.txt
+│       ├── potato.txt
+│       ├── tomato.txt
+│       ├── cotton.txt
+│       ├── sugarcane.txt
+│       ├── soybean.txt
+│       └── peanut.txt
 │
 ├── api/                             # REST API
 │   ├── __init__.py
@@ -217,7 +234,6 @@ CropYieldPrediction_Agent/
 ├── data/                            # All data files
 │   ├── crop_data.csv                # 2,200 rows — training dataset
 │   ├── market_prices.csv            # 22 rows — price/demand/trend
-│   ├── agricultural_knowledge.txt   # 13 topics — RAG source
 │   └── generate_crop_data.py        # Script to regenerate crop_data.csv
 │
 ├── chroma_db/                       # (auto-created) Persisted vector store
@@ -483,9 +499,9 @@ Market data for a single crop.
 | ... | ... | ... | ... |
 | watermelon | 1,500 | high | stable |
 
-### `data/agricultural_knowledge.txt` — Knowledge Base
+### `rag/documents/` — Agronomic Knowledge Base
 
-13 sections covering cultivation practices, fertilizer, soil, pest management, irrigation, crop rotation, organic farming, and post-harvest management. Parsed with sliding-window chunking for ChromaDB ingestion.
+9 crop-specific guides (rice, wheat, maize, potato, tomato, cotton, sugarcane, soybean, peanut) covering ideal growing conditions, soil requirements, pest and disease management, best practices, and expected yield ranges. Each guide is split by `##` section headers into focused chunks (~96 total) for ChromaDB ingestion. These contain real agronomic expertise, not re-derived training data statistics.
 
 ---
 
@@ -534,12 +550,14 @@ streamlit_app.py calls agents/orchestrator.py:run()
       │       └── Returns: {best_market_crop, ranked_crops, market_insights}
       │
       ├── 4. RAGKnowledgeAgent.retrieve_for_crop("rice")
-      │       ├── Semantic search in ChromaDB
-      │       └── Returns: context paragraphs about rice cultivation
+      │       ├── Semantic search in ChromaDB (indexed from rag/documents/)
+      │       └── Returns: section-level context about cultivation, pests, soil, etc.
       │
       └── 5. DecisionAgent.decide(crop, weather, market, rag_context)
               ├── Builds structured prompt with all agent outputs
               ├── Calls Groq LLaMA-3 (or OpenAI, or fallback)
+              ├── LLM validates input and provides agronomic reasoning/caveats
+              ├── recommended_crop = RF top_prediction (LLM only overrides if input is Invalid)
               └── Returns: {recommended_crop, llm_response, model_used}
       │
       ▼

@@ -1,0 +1,53 @@
+topic: Maize Cultivation Guide
+crop: Maize
+
+## Overview
+Maize (Zea mays), also called corn, is the third most important cereal crop worldwide after wheat and rice. It serves as food, animal feed, and industrial raw material. Maize is a warm-season crop with a high yield potential.
+
+## Ideal Growing Conditions
+- Temperature: 18–32 °C; optimal 21–27 °C. Frost-sensitive at all stages; temperatures above 35 °C during pollination cause poor kernel set.
+- Rainfall: 500–800 mm per growing season; critical moisture needed during silking and grain fill.
+- Humidity: 50–70%; high humidity combined with warmth promotes fungal diseases.
+- Sunlight: 8–10 hours of full sunlight per day; maize is a C4 plant with high light-use efficiency.
+- Altitude: Sea level to 2500 m; highland varieties adapted to cooler temperatures.
+
+## Soil Requirements
+- Soil type: Well-drained deep loam or sandy-loam soils; waterlogging even for short periods causes severe yield loss.
+- pH: 5.8–7.0; optimal 6.0–6.8.
+- Nitrogen: High feeder — 120–150 kg N/ha; apply in 3 splits (basal, knee-high, tasseling).
+- Phosphorus: 60–80 kg P₂O₅/ha as basal; critical for early root development.
+- Potassium: 40–60 kg K₂O/ha; improves stalk strength and drought tolerance.
+
+## Planting Season
+- Tropical regions: Year-round with irrigation; main season aligned with monsoon onset.
+- Temperate regions: Spring planting after last frost; harvest in autumn.
+- Crop duration: 90–120 days for most hybrid varieties.
+
+## Crop Management
+- Seed rate: 18–22 kg/ha; plant spacing 60×20 cm (75,000–80,000 plants/ha).
+- Hybrid seeds recommended over open-pollinated varieties for yield advantage.
+- Hill-up soil around stems at knee-high stage for lodging prevention.
+- Detasseling required in seed production plots.
+
+## Common Pests
+- Fall armyworm (Spodoptera frugiperda): Invasive pest; feeds on whorls; apply emamectin benzoate or chlorantraniliprole early.
+- Corn borer (Ostrinia nubilalis): Bores into stalk and ear; use Bt-based biopesticides.
+- Maize weevil (Sitophilus zeamais): Post-harvest storage pest; treat grain with phosphine fumigation.
+
+## Common Diseases
+- Maize streak virus: Transmitted by leafhoppers; yellow streaks on leaves; use resistant varieties.
+- Gray leaf spot (Cercospora zeae-maydis): Rectangular gray lesions; use fungicide (azoxystrobin) and resistant hybrids.
+- Northern corn leaf blight: Long cigar-shaped lesions; apply mancozeb, use resistant varieties.
+- Stalk rot (Fusarium/Pythium): Premature death; avoid stress, ensure good drainage.
+
+## Best Practices
+- Use certified hybrid seeds for 20–30% higher yield.
+- Integrated soil fertility management: combine 5 t/ha FYM with chemical fertilizers.
+- Intercrop with legumes (soybean, cowpea) to improve soil nitrogen and farmer income.
+- Weed management: atrazine pre-emergence + hand weeding at 30 DAS.
+- Scout regularly for fall armyworm from 7 DAS — early detection is critical.
+
+## Expected Yield
+- Local varieties: 2–3 tons/ha
+- Improved OPVs: 3–5 tons/ha
+- Hybrids under good management: 6–10 tons/ha

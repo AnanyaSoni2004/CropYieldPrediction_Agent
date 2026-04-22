@@ -81,20 +81,18 @@ If conditions are harsh:
 
 ---
 
-## STEP 3: ML PREDICTION VERIFICATION
+## STEP 3: ML PREDICTION REVIEW
 
 ML model prediction:
 {ml_prediction}
 
-DO NOT blindly trust it. Check:
+The ML model's top prediction is the final recommended crop (unless the input is invalid).
+Your role here is to evaluate and explain — not to substitute your own crop choice.
 
+Check:
 * Does the predicted crop realistically grow in these conditions?
 * Compare with known ideal ranges.
-
-If mismatch:
-
-* Reject the ML prediction
-* Explain why it is incorrect
+* Note any concerns or caveats the farmer should be aware of.
 
 ---
 
@@ -119,8 +117,8 @@ Reasoning:
 - Market: <findings>
 
 ML Prediction Review:
-- Status: <Accepted / Rejected — MUST be "Rejected" if Validation Status is Invalid>
-- Reason: <why accepted or rejected; if Invalid, state "ML prediction is unreliable — input conditions are not valid for any crop growth">
+- Status: <Confirmed / Caveats — use "Confirmed" if crop suits conditions well, "Caveats" if there are concerns>
+- Reason: <explain suitability or list agronomic caveats the farmer should know; if Invalid, state "ML prediction is unreliable — input conditions are not valid for any crop growth">
 
 Suggested Fixes:
 - <how to improve soil, temperature, irrigation, etc., or "None required">
@@ -174,7 +172,15 @@ class DecisionAgent:
             crop_result, weather_result, market_result, rag_context
         )
         llm_text, model_used = self._call_llm(user_message)
-        recommended = self._extract_crop(llm_text, crop_result["top_prediction"])
+        extracted = self._extract_crop(llm_text, crop_result["top_prediction"])
+
+        # LLM may only block the RF prediction when input is genuinely invalid.
+        # Otherwise the RF top prediction is authoritative — the LLM's job is
+        # to explain and advise, not to substitute its own crop choice.
+        if extracted in ("Invalid Input", "No Suitable Crop"):
+            recommended = extracted
+        else:
+            recommended = crop_result["top_prediction"]
 
         return {
             "recommended_crop": recommended,

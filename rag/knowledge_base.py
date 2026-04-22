@@ -1,97 +1,63 @@
 """
 Knowledge Base Builder
 -----------------------
-Reads crop_yield_dataset.csv and produces labelled chunks for ingestion
-into the ChromaDB vector store.
+Reads agronomic knowledge documents from rag/documents/ and produces
+labelled chunks for ingestion into the ChromaDB vector store.
+
+Each .txt file in documents/ is a crop-specific guide covering ideal growing
+conditions, soil requirements, pests, diseases, and best practices.
 """
-import csv
 import os
-import statistics
 from typing import Iterator
 
-DATASET_FILE = os.path.join(
-    os.path.dirname(__file__), "..", "crop_yield_dataset.csv"
-)
-
-NUMERIC_COLS = [
-    "Temperature (C)",
-    "Rainfall (mm)",
-    "Humidity (%)",
-    "Sunlight (hours)",
-    "Soil pH",
-    "Soil Nitrogen (%)",
-    "Soil Phosphorus (ppm)",
-    "Soil Potassium (ppm)",
-    "Altitude (m)",
-    "Wind Speed (m/s)",
-    "Crop Yield (tons/ha)",
-]
+DOCUMENTS_DIR = os.path.join(os.path.dirname(__file__), "documents")
 
 
-def _fmt(value: float) -> str:
-    return f"{value:.2f}"
-
-
-def iter_chunks(
-    chunk_size: int = 400,
-    overlap: int = 50,
-) -> Iterator[dict]:
+def iter_chunks() -> Iterator[dict]:
     """
     Yield {'id': str, 'text': str, 'metadata': dict} dicts.
 
-    Produces two kinds of chunks:
-      1. Per-crop aggregate summary with min/mean/max statistics.
-      2. Individual row chunks describing exact growing conditions and yield.
+    Each document is split into section chunks (split on '## ') so that
+    vector search retrieves focused, relevant passages rather than entire files.
     """
-    with open(DATASET_FILE, encoding="utf-8", newline="") as fh:
-        rows = list(csv.DictReader(fh))
-
-    by_crop: dict[str, list[dict]] = {}
-    for row in rows:
-        by_crop.setdefault(row["Crop"], []).append(row)
-
     doc_id = 0
 
-    # Per-crop summary chunks
-    for crop, crop_rows in sorted(by_crop.items()):
-        stats = {
-            col: {
-                "mean": statistics.mean(float(r[col]) for r in crop_rows),
-                "min":  min(float(r[col]) for r in crop_rows),
-                "max":  max(float(r[col]) for r in crop_rows),
+    for filename in sorted(os.listdir(DOCUMENTS_DIR)):
+        if not filename.endswith(".txt"):
+            continue
+
+        filepath = os.path.join(DOCUMENTS_DIR, filename)
+        crop_name = filename.replace(".txt", "").capitalize()
+
+        with open(filepath, encoding="utf-8") as fh:
+            content = fh.read()
+
+        # Extract topic and crop from frontmatter lines
+        topic = crop_name
+        for line in content.splitlines()[:5]:
+            if line.startswith("topic:"):
+                topic = line.split(":", 1)[1].strip()
+                break
+
+        # Split into sections on '## ' headers; keep header with its content
+        raw_sections = content.split("\n## ")
+        sections = []
+        for i, section in enumerate(raw_sections):
+            # Re-attach the '## ' prefix for all but the first block
+            text = section if i == 0 else "## " + section
+            text = text.strip()
+            if text:
+                sections.append(text)
+
+        for section in sections:
+            yield {
+                "id":       f"doc_{doc_id}",
+                "text":     section,
+                "metadata": {
+                    "crop":  crop_name,
+                    "topic": topic,
+                    "chunk_type": "knowledge",
+                    "source": filename,
+                },
             }
-            for col in NUMERIC_COLS
-        }
-
-        text = "\n".join([
-            f"{crop} growing conditions and yield summary ({len(crop_rows)} records):",
-            f"  Temperature: avg {_fmt(stats['Temperature (C)']['mean'])} °C"
-            f" (range {_fmt(stats['Temperature (C)']['min'])}–{_fmt(stats['Temperature (C)']['max'])} °C)",
-            f"  Rainfall: avg {_fmt(stats['Rainfall (mm)']['mean'])} mm"
-            f" (range {_fmt(stats['Rainfall (mm)']['min'])}–{_fmt(stats['Rainfall (mm)']['max'])} mm)",
-            f"  Humidity: avg {_fmt(stats['Humidity (%)']['mean'])} %"
-            f" (range {_fmt(stats['Humidity (%)']['min'])}–{_fmt(stats['Humidity (%)']['max'])} %)",
-            f"  Sunlight: avg {_fmt(stats['Sunlight (hours)']['mean'])} hrs"
-            f" (range {_fmt(stats['Sunlight (hours)']['min'])}–{_fmt(stats['Sunlight (hours)']['max'])} hrs)",
-            f"  Soil pH: avg {_fmt(stats['Soil pH']['mean'])}"
-            f" (range {_fmt(stats['Soil pH']['min'])}–{_fmt(stats['Soil pH']['max'])})",
-            f"  Soil Nitrogen: avg {_fmt(stats['Soil Nitrogen (%)']['mean'])} %"
-            f" (range {_fmt(stats['Soil Nitrogen (%)']['min'])}–{_fmt(stats['Soil Nitrogen (%)']['max'])} %)",
-            f"  Soil Phosphorus: avg {_fmt(stats['Soil Phosphorus (ppm)']['mean'])} ppm"
-            f" (range {_fmt(stats['Soil Phosphorus (ppm)']['min'])}–{_fmt(stats['Soil Phosphorus (ppm)']['max'])} ppm)",
-            f"  Soil Potassium: avg {_fmt(stats['Soil Potassium (ppm)']['mean'])} ppm"
-            f" (range {_fmt(stats['Soil Potassium (ppm)']['min'])}–{_fmt(stats['Soil Potassium (ppm)']['max'])} ppm)",
-            f"  Altitude: avg {_fmt(stats['Altitude (m)']['mean'])} m"
-            f" (range {_fmt(stats['Altitude (m)']['min'])}–{_fmt(stats['Altitude (m)']['max'])} m)",
-            f"  Wind Speed: avg {_fmt(stats['Wind Speed (m/s)']['mean'])} m/s"
-            f" (range {_fmt(stats['Wind Speed (m/s)']['min'])}–{_fmt(stats['Wind Speed (m/s)']['max'])} m/s)",
-            f"  Crop Yield: avg {_fmt(stats['Crop Yield (tons/ha)']['mean'])} tons/ha"
-            f" (range {_fmt(stats['Crop Yield (tons/ha)']['min'])}–{_fmt(stats['Crop Yield (tons/ha)']['max'])} tons/ha)",
-        ])
-
-        yield {
-            "id":       f"doc_{doc_id}",
-            "text":     text,
-            "metadata": {"crop": crop, "chunk_type": "summary"},
-        }
-        doc_id += 1
+            doc_id += 1
