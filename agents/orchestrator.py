@@ -5,8 +5,8 @@ Defines the multi-agent workflow as a directed graph using LangGraph.
 
 Graph topology:
     START
-      └─► crop_prediction_node
-            └─► weather_node
+      └─► weather_node
+            └─► crop_prediction_node   (uses live temp & humidity from weather)
                   └─► market_node
                         └─► rag_node
                               └─► decision_node
@@ -50,16 +50,25 @@ class AgentState(TypedDict, total=False):
 # Node functions  (each node is a plain function AgentState → dict)
 # ---------------------------------------------------------------------------
 
-def crop_prediction_node(state: AgentState) -> dict:
-    agent  = CropPredictionAgent()
-    result = agent.predict(state["soil_data"])
-    return {"crop_result": result}
-
-
 def weather_node(state: AgentState) -> dict:
     agent  = WeatherAgent()
     result = agent.get_weather(state.get("location", "New Delhi"))
     return {"weather_result": result}
+
+
+def crop_prediction_node(state: AgentState) -> dict:
+    agent = CropPredictionAgent()
+    soil  = dict(state["soil_data"])
+
+    # Merge live weather into the ML inputs so location actually affects predictions.
+    # Only override when we have real API data (not mock fallback).
+    weather = state.get("weather_result", {})
+    if weather.get("source") == "openweathermap":
+        soil["temperature"] = weather["temperature"]
+        soil["humidity"]    = weather["humidity"]
+
+    result = agent.predict(soil)
+    return {"crop_result": result, "soil_data": soil}
 
 
 def market_node(state: AgentState) -> dict:
@@ -106,9 +115,9 @@ def build_graph() -> StateGraph:
     builder.add_node("rag",             rag_node)
     builder.add_node("decision",        decision_node)
 
-    builder.add_edge(START,             "crop_prediction")
-    builder.add_edge("crop_prediction", "weather")
-    builder.add_edge("weather",         "market")
+    builder.add_edge(START,             "weather")
+    builder.add_edge("weather",         "crop_prediction")
+    builder.add_edge("crop_prediction", "market")
     builder.add_edge("market",          "rag")
     builder.add_edge("rag",             "decision")
     builder.add_edge("decision",        END)
