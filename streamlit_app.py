@@ -520,11 +520,23 @@ if page == "Crop Recommendation":
             </div>
             """, unsafe_allow_html=True)
         else:
+            rec_crop_lower = rec["recommended_crop"].lower()
+            rec_conf = next(
+                (c["confidence"] for c in crop_result["top_crops"] if c["crop"].lower() == rec_crop_lower),
+                crop_result["confidence"],
+            )
+            ml_top = crop_result["top_prediction"].title()
+            ml_top_conf = crop_result["confidence"] * 100
+            override_note = (
+                f" &nbsp;|&nbsp; ML top: {ml_top} ({ml_top_conf:.1f}%)"
+                if rec_crop_lower != crop_result["top_prediction"].lower()
+                else ""
+            )
             st.markdown(f"""
             <div class="crop-hero animate-in">
                 <div style="font-size:0.9rem;color:#a7f3d0;text-transform:uppercase;letter-spacing:2px;font-weight:600;">Recommended Crop</div>
                 <h1>{rec['recommended_crop'].title()}</h1>
-                <div class="confidence-badge">{crop_result['confidence']*100:.1f}% ML Confidence  |  {rec['model_used']}</div>
+                <div class="confidence-badge">{rec_conf*100:.1f}% ML Confidence  |  {rec['model_used']}{override_note}</div>
             </div>
             """, unsafe_allow_html=True)
 
