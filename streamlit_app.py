@@ -506,105 +506,119 @@ if page == "Crop Recommendation":
 
         st.markdown("---")
 
+        is_invalid = rec["recommended_crop"].lower() in ("invalid input", "no suitable crop")
+
         # ---- Hero: Recommended Crop ----
-        st.markdown(f"""
-        <div class="crop-hero animate-in">
-            <div style="font-size:0.9rem;color:#a7f3d0;text-transform:uppercase;letter-spacing:2px;font-weight:600;">Recommended Crop</div>
-            <h1>{rec['recommended_crop'].title()}</h1>
-            <div class="confidence-badge">{crop_result['confidence']*100:.1f}% ML Confidence  |  {rec['model_used']}</div>
-        </div>
-        """, unsafe_allow_html=True)
-
-        st.markdown("")
-
-        # ---- Top Predictions ----
-        st.markdown('<div class="section-header">Top Crop Predictions</div>', unsafe_allow_html=True)
-        pred_cols = st.columns(len(crop_result["top_crops"]))
-        medals = ["1st", "2nd", "3rd"]
-        for i, crop_info in enumerate(crop_result["top_crops"]):
-            with pred_cols[i]:
-                conf_pct = crop_info["confidence"] * 100
-                rank_label = medals[i] if i < 3 else f"{i+1}th"
-                st.markdown(f"""
-                <div class="glass-card" style="text-align:center;">
-                    <div style="font-size:1.1rem;font-weight:700;color:#6ee7b7;">{rank_label}</div>
-                    <div style="font-size:1.2rem;font-weight:700;color:#ecfdf5;margin:6px 0;">{crop_info['crop'].title()}</div>
-                    <div style="font-size:0.85rem;color:#6ee7b7;">{conf_pct:.1f}% confidence</div>
-                    <div style="margin-top:8px;background:rgba(74,222,128,0.1);border-radius:8px;height:8px;overflow:hidden;">
-                        <div style="width:{conf_pct}%;height:100%;background:linear-gradient(90deg,#4ade80,#059669);border-radius:8px;"></div>
-                    </div>
-                </div>
-                """, unsafe_allow_html=True)
-
-        # ---- Soil Summary ----
-        st.markdown('<div class="section-header">Soil Analysis</div>', unsafe_allow_html=True)
-        soil_sum = crop_result["soil_summary"]
-        sc1, sc2, sc3, sc4, sc5 = st.columns(5)
-        with sc1:
-            st.markdown(metric_card("Nitrogen", f"{soil_badge(soil_sum['nitrogen'])}"), unsafe_allow_html=True)
-        with sc2:
-            st.markdown(metric_card("Phosphorus", f"{soil_badge(soil_sum['phosphorus'])}"), unsafe_allow_html=True)
-        with sc3:
-            st.markdown(metric_card("Potassium", f"{soil_badge(soil_sum['potassium'])}"), unsafe_allow_html=True)
-        with sc4:
-            st.markdown(metric_card("pH Status", f"{badge(soil_sum['ph_status'].title(), 'info')}"), unsafe_allow_html=True)
-        with sc5:
-            st.markdown(metric_card("Rainfall", f"<span style='color:#ecfdf5;font-size:1rem;'>{soil_sum['rainfall_mm']} mm</span>"), unsafe_allow_html=True)
-
-        # ---- Weather ----
-        st.markdown('<div class="section-header">Weather Analysis</div>', unsafe_allow_html=True)
-        wc1, wc2, wc3, wc4 = st.columns(4)
-        with wc1:
-            st.markdown(metric_card("Location", f"<span style='color:#ecfdf5;font-size:1rem;'>{weather_result['location']}</span>"), unsafe_allow_html=True)
-        with wc2:
-            st.markdown(metric_card("Temperature", f"<span style='color:#ecfdf5;font-size:1.3rem;'>{weather_result['temperature']}C</span>"), unsafe_allow_html=True)
-        with wc3:
-            st.markdown(metric_card("Humidity", f"<span style='color:#ecfdf5;font-size:1.3rem;'>{weather_result['humidity']}%</span>"), unsafe_allow_html=True)
-        with wc4:
-            suit = weather_result.get("suitability", "N/A")
-            suit_level = "high" if "excellent" in suit else "medium" if "good" in suit or "moderate" in suit else "low"
-            st.markdown(metric_card("Suitability", badge(suit.split("–")[0].strip().title(), suit_level)), unsafe_allow_html=True)
-
-        # ---- Market ----
-        st.markdown('<div class="section-header">Market Analysis</div>', unsafe_allow_html=True)
-        market_ranked = market_result.get("ranked_crops", [])
-        if market_ranked:
-            market_df = pd.DataFrame(market_ranked)
-            market_df.columns = [c.replace("_", " ").title() for c in market_df.columns]
-
-            fig_market = go.Figure(data=[
-                go.Bar(
-                    x=[c["crop"].title() for c in market_ranked],
-                    y=[c["price_per_quintal"] for c in market_ranked],
-                    marker=dict(
-                        color=[c["profitability_score"] for c in market_ranked],
-                        colorscale=[[0, "#064e3b"], [0.5, "#059669"], [1, "#4ade80"]],
-                        showscale=True,
-                        colorbar=dict(title=dict(text="Score", font=dict(color="#94a3b8")), tickfont=dict(color="#94a3b8")),
-                    ),
-                    text=[f"Rs.{c['price_per_quintal']}" for c in market_ranked],
-                    textposition="outside",
-                    textfont=dict(color="#cbd5e1", size=12),
-                )
-            ])
-            fig_market.update_layout(
-                plot_bgcolor="rgba(0,0,0,0)",
-                paper_bgcolor="rgba(0,0,0,0)",
-                font=dict(color="#94a3b8"),
-                xaxis=dict(title="Crop", color="#cbd5e1", gridcolor="rgba(74,222,128,0.05)"),
-                yaxis=dict(title="Price (Rs./quintal)", color="#cbd5e1", gridcolor="rgba(74,222,128,0.08)"),
-                margin=dict(l=20, r=20, t=30, b=20),
-                height=340,
-            )
-            st.plotly_chart(fig_market, use_container_width=True)
-
+        if is_invalid:
             st.markdown(f"""
-            <div class="glass-card" style="font-size:0.9rem;color:#94a3b8;">
-                <strong style="color:#a7f3d0;">Market Insights:</strong> {market_result.get('market_insights', '')}
+            <div class="crop-hero animate-in" style="background:linear-gradient(135deg,#7f1d1d,#991b1b);">
+                <div style="font-size:0.9rem;color:#fca5a5;text-transform:uppercase;letter-spacing:2px;font-weight:600;">Recommendation</div>
+                <h1 style="color:#fecaca;">{rec['recommended_crop'].title()}</h1>
+                <div class="confidence-badge" style="background:rgba(239,68,68,0.2);color:#fca5a5;">
+                    Input validation failed — see report below
+                </div>
+            </div>
+            """, unsafe_allow_html=True)
+        else:
+            st.markdown(f"""
+            <div class="crop-hero animate-in">
+                <div style="font-size:0.9rem;color:#a7f3d0;text-transform:uppercase;letter-spacing:2px;font-weight:600;">Recommended Crop</div>
+                <h1>{rec['recommended_crop'].title()}</h1>
+                <div class="confidence-badge">{crop_result['confidence']*100:.1f}% ML Confidence  |  {rec['model_used']}</div>
             </div>
             """, unsafe_allow_html=True)
 
-        # ---- Full LLM Recommendation ----
+        st.markdown("")
+
+        if not is_invalid:
+            # ---- Top Predictions ----
+            st.markdown('<div class="section-header">Top Crop Predictions</div>', unsafe_allow_html=True)
+            pred_cols = st.columns(len(crop_result["top_crops"]))
+            medals = ["1st", "2nd", "3rd"]
+            for i, crop_info in enumerate(crop_result["top_crops"]):
+                with pred_cols[i]:
+                    conf_pct = crop_info["confidence"] * 100
+                    rank_label = medals[i] if i < 3 else f"{i+1}th"
+                    st.markdown(f"""
+                    <div class="glass-card" style="text-align:center;">
+                        <div style="font-size:1.1rem;font-weight:700;color:#6ee7b7;">{rank_label}</div>
+                        <div style="font-size:1.2rem;font-weight:700;color:#ecfdf5;margin:6px 0;">{crop_info['crop'].title()}</div>
+                        <div style="font-size:0.85rem;color:#6ee7b7;">{conf_pct:.1f}% confidence</div>
+                        <div style="margin-top:8px;background:rgba(74,222,128,0.1);border-radius:8px;height:8px;overflow:hidden;">
+                            <div style="width:{conf_pct}%;height:100%;background:linear-gradient(90deg,#4ade80,#059669);border-radius:8px;"></div>
+                        </div>
+                    </div>
+                    """, unsafe_allow_html=True)
+
+            # ---- Soil Summary ----
+            st.markdown('<div class="section-header">Soil Analysis</div>', unsafe_allow_html=True)
+            soil_sum = crop_result["soil_summary"]
+            sc1, sc2, sc3, sc4, sc5 = st.columns(5)
+            with sc1:
+                st.markdown(metric_card("Nitrogen", f"{soil_badge(soil_sum['nitrogen'])}"), unsafe_allow_html=True)
+            with sc2:
+                st.markdown(metric_card("Phosphorus", f"{soil_badge(soil_sum['phosphorus'])}"), unsafe_allow_html=True)
+            with sc3:
+                st.markdown(metric_card("Potassium", f"{soil_badge(soil_sum['potassium'])}"), unsafe_allow_html=True)
+            with sc4:
+                st.markdown(metric_card("pH Status", f"{badge(soil_sum['ph_status'].title(), 'info')}"), unsafe_allow_html=True)
+            with sc5:
+                st.markdown(metric_card("Rainfall", f"<span style='color:#ecfdf5;font-size:1rem;'>{soil_sum['rainfall_mm']} mm</span>"), unsafe_allow_html=True)
+
+            # ---- Weather ----
+            st.markdown('<div class="section-header">Weather Analysis</div>', unsafe_allow_html=True)
+            wc1, wc2, wc3, wc4 = st.columns(4)
+            with wc1:
+                st.markdown(metric_card("Location", f"<span style='color:#ecfdf5;font-size:1rem;'>{weather_result['location']}</span>"), unsafe_allow_html=True)
+            with wc2:
+                st.markdown(metric_card("Temperature", f"<span style='color:#ecfdf5;font-size:1.3rem;'>{weather_result['temperature']}C</span>"), unsafe_allow_html=True)
+            with wc3:
+                st.markdown(metric_card("Humidity", f"<span style='color:#ecfdf5;font-size:1.3rem;'>{weather_result['humidity']}%</span>"), unsafe_allow_html=True)
+            with wc4:
+                suit = weather_result.get("suitability", "N/A")
+                suit_level = "high" if "excellent" in suit else "medium" if "good" in suit or "moderate" in suit else "low"
+                st.markdown(metric_card("Suitability", badge(suit.split("–")[0].strip().title(), suit_level)), unsafe_allow_html=True)
+
+            # ---- Market ----
+            st.markdown('<div class="section-header">Market Analysis</div>', unsafe_allow_html=True)
+            market_ranked = market_result.get("ranked_crops", [])
+            if market_ranked:
+                market_df = pd.DataFrame(market_ranked)
+                market_df.columns = [c.replace("_", " ").title() for c in market_df.columns]
+
+                fig_market = go.Figure(data=[
+                    go.Bar(
+                        x=[c["crop"].title() for c in market_ranked],
+                        y=[c["price_per_quintal"] for c in market_ranked],
+                        marker=dict(
+                            color=[c["profitability_score"] for c in market_ranked],
+                            colorscale=[[0, "#064e3b"], [0.5, "#059669"], [1, "#4ade80"]],
+                            showscale=True,
+                            colorbar=dict(title=dict(text="Score", font=dict(color="#94a3b8")), tickfont=dict(color="#94a3b8")),
+                        ),
+                        text=[f"Rs.{c['price_per_quintal']}" for c in market_ranked],
+                        textposition="outside",
+                        textfont=dict(color="#cbd5e1", size=12),
+                    )
+                ])
+                fig_market.update_layout(
+                    plot_bgcolor="rgba(0,0,0,0)",
+                    paper_bgcolor="rgba(0,0,0,0)",
+                    font=dict(color="#94a3b8"),
+                    xaxis=dict(title="Crop", color="#cbd5e1", gridcolor="rgba(74,222,128,0.05)"),
+                    yaxis=dict(title="Price (Rs./quintal)", color="#cbd5e1", gridcolor="rgba(74,222,128,0.08)"),
+                    margin=dict(l=20, r=20, t=30, b=20),
+                    height=340,
+                )
+                st.plotly_chart(fig_market, use_container_width=True)
+
+                st.markdown(f"""
+                <div class="glass-card" style="font-size:0.9rem;color:#94a3b8;">
+                    <strong style="color:#a7f3d0;">Market Insights:</strong> {market_result.get('market_insights', '')}
+                </div>
+                """, unsafe_allow_html=True)
+
+        # ---- AI Advisory Report (always shown) ----
         st.markdown('<div class="section-header">AI Advisory Report</div>', unsafe_allow_html=True)
         st.markdown(f"""
         <div class="glass-card animate-in" style="line-height:1.8; color:#ecfdf5; font-size:0.92rem;">
