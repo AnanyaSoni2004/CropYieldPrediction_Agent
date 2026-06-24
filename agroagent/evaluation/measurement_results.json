@@ -1,0 +1,525 @@
+[
+  {
+    "case": "valid_humid_coastal",
+    "input": {
+      "soil": {
+        "N": 90,
+        "P": 42,
+        "K": 43,
+        "temperature": 28.02,
+        "humidity": 71,
+        "ph": 6.5,
+        "rainfall": 202
+      },
+      "location": "Mumbai",
+      "user_query": ""
+    },
+    "timings_sec": {
+      "weather": 0.156,
+      "crop_prediction": 0.06,
+      "market": 0.027,
+      "rag": 8.292,
+      "decision": 5.503,
+      "TOTAL": 14.04
+    },
+    "decisions": {
+      "weather": {
+        "source": "openweathermap",
+        "temperature": 28.02,
+        "humidity": 71,
+        "suitability": "excellent \u2013 ideal growing conditions"
+      },
+      "crop_prediction": {
+        "top_prediction": "jute",
+        "confidence": 0.475,
+        "top_crops": [
+          [
+            "jute",
+            0.475
+          ],
+          [
+            "rice",
+            0.395
+          ],
+          [
+            "coffee",
+            0.06
+          ]
+        ]
+      },
+      "market": {
+        "best_market_crop": "coffee",
+        "ranking": [
+          [
+            "coffee",
+            1.0
+          ],
+          [
+            "rice",
+            0.4733
+          ],
+          [
+            "jute",
+            0.3167
+          ]
+        ]
+      },
+      "rag": {
+        "context_chars": 908
+      },
+      "decision": {
+        "recommended_crop": "jute",
+        "model_used": "llama-3.3-70b-versatile",
+        "validation_status": "Valid",
+        "environmental": "Optimal",
+        "ml_review_status": "Valid",
+        "confidence_level": "High"
+      }
+    },
+    "disagreements": {
+      "ml_vs_market": true,
+      "final_vs_ml": false,
+      "llm_blocked_ml": false,
+      "weather_poor_but_recommended": false
+    },
+    "disagreement_count": 1,
+    "quality": {
+      "score": 74,
+      "breakdown": [
+        "ML confidence 47.5% -> 14/30",
+        "final == ML (+15)",
+        "structured fields parsed -> 20/20",
+        "concrete crop recommended (+15)",
+        "real LLM used (+10)"
+      ]
+    },
+    "final_recommendation": "jute",
+    "llm_response": "Validation Status: Valid\n\nIssues Found:\n- None\n\nEnvironmental Assessment: Optimal\n\nFinal Recommendation:\nRecommended Crop: coffee\nReasoning:\n- Soil: Neutral soil pH is suitable for coffee production.\n- Weather: The temperature (28.02\u00b0C) and humidity (71%) are within the ideal range for coffee growth.\n- Market: Coffee is the most profitable crop in the given market conditions, with a high demand and rising trend.\n\nML Prediction Review:\n- Status: Caveats\n- Reason: Although the ML model's top prediction is jute, coffee is a more suitable crop given the market conditions and environmental factors. The ML prediction is not entirely reliable in this case, as it does not take into account the market demand and profitability.\n\nSuggested Fixes:\n- None required\n\nConfidence Level: High",
+    "tool_calls": {
+      "weather_api (OpenWeatherMap HTTP GET)": 1,
+      "ml_inference (RandomForest.predict_proba)": 1,
+      "csv_read (market_prices.csv)": 1,
+      "vector_search (ChromaDB query)": 1,
+      "llm_completion (Groq/OpenAI chat)": 1
+    },
+    "tool_calls_total": 5
+  },
+  {
+    "case": "valid_high_npk_neutral",
+    "input": {
+      "soil": {
+        "N": 120,
+        "P": 80,
+        "K": 70,
+        "temperature": 29.07,
+        "humidity": 56,
+        "ph": 7.0,
+        "rainfall": 1200
+      },
+      "location": "Bengaluru",
+      "user_query": ""
+    },
+    "timings_sec": {
+      "weather": 0.144,
+      "crop_prediction": 0.046,
+      "market": 0.022,
+      "rag": 0.036,
+      "decision": 3.751,
+      "TOTAL": 3.998
+    },
+    "decisions": {
+      "weather": {
+        "source": "openweathermap",
+        "temperature": 29.07,
+        "humidity": 56,
+        "suitability": "excellent \u2013 ideal growing conditions"
+      },
+      "crop_prediction": {
+        "top_prediction": "banana",
+        "confidence": 0.275,
+        "top_crops": [
+          [
+            "banana",
+            0.275
+          ],
+          [
+            "maize",
+            0.21
+          ],
+          [
+            "chickpea",
+            0.18
+          ]
+        ]
+      },
+      "market": {
+        "best_market_crop": "maize",
+        "ranking": [
+          [
+            "maize",
+            0.56
+          ],
+          [
+            "banana",
+            0.4833
+          ],
+          [
+            "chickpea",
+            0.45
+          ]
+        ]
+      },
+      "rag": {
+        "context_chars": 1125
+      },
+      "decision": {
+        "recommended_crop": "banana",
+        "model_used": "llama-3.3-70b-versatile",
+        "validation_status": "Valid",
+        "environmental": "Optimal",
+        "ml_review_status": "Valid",
+        "confidence_level": "High"
+      }
+    },
+    "disagreements": {
+      "ml_vs_market": true,
+      "final_vs_ml": false,
+      "llm_blocked_ml": false,
+      "weather_poor_but_recommended": false
+    },
+    "disagreement_count": 1,
+    "quality": {
+      "score": 68,
+      "breakdown": [
+        "ML confidence 27.5% -> 8/30",
+        "final == ML (+15)",
+        "structured fields parsed -> 20/20",
+        "concrete crop recommended (+15)",
+        "real LLM used (+10)"
+      ]
+    },
+    "final_recommendation": "banana",
+    "llm_response": "Validation Status: Valid\n\nIssues Found:\n- None\n\nEnvironmental Assessment: Optimal\n\nFinal Recommendation:\nRecommended Crop: Maize\n\nReasoning:\n- Soil: The neutral soil pH and high levels of nitrogen, phosphorus, and potassium are suitable for maize growth.\n- Weather: The temperature of 29.07\u00b0C and humidity of 56% are within the optimal range for maize.\n- Market: Maize is the most profitable crop in the given market, with a high demand and rising trend.\n\nML Prediction Review:\n- Status: Caveats\n- Reason: Although the ML model predicts banana as the top crop, maize is a more suitable choice given the environmental conditions and market demand. Maize is a crop that can thrive in the given temperature and humidity range, and its growth requirements align with the provided soil conditions.\n\nSuggested Fixes:\n- None required\n\nConfidence Level: High",
+    "tool_calls": {
+      "weather_api (OpenWeatherMap HTTP GET)": 1,
+      "ml_inference (RandomForest.predict_proba)": 1,
+      "csv_read (market_prices.csv)": 1,
+      "vector_search (ChromaDB query)": 1,
+      "llm_completion (Groq/OpenAI chat)": 1
+    },
+    "tool_calls_total": 5
+  },
+  {
+    "case": "suboptimal_drought",
+    "input": {
+      "soil": {
+        "N": 40,
+        "P": 30,
+        "K": 30,
+        "temperature": 34.19,
+        "humidity": 37,
+        "ph": 6.0,
+        "rainfall": 300
+      },
+      "location": "Jaipur",
+      "user_query": ""
+    },
+    "timings_sec": {
+      "weather": 0.136,
+      "crop_prediction": 0.039,
+      "market": 0.004,
+      "rag": 0.029,
+      "decision": 3.621,
+      "TOTAL": 3.831
+    },
+    "decisions": {
+      "weather": {
+        "source": "openweathermap",
+        "temperature": 34.19,
+        "humidity": 37,
+        "suitability": "good \u2013 generally suitable for most crops"
+      },
+      "crop_prediction": {
+        "top_prediction": "mango",
+        "confidence": 0.515,
+        "top_crops": [
+          [
+            "mango",
+            0.515
+          ],
+          [
+            "coffee",
+            0.115
+          ],
+          [
+            "coconut",
+            0.09
+          ]
+        ]
+      },
+      "market": {
+        "best_market_crop": "coffee",
+        "ranking": [
+          [
+            "coffee",
+            1.0
+          ],
+          [
+            "mango",
+            0.7
+          ],
+          [
+            "coconut",
+            0.4
+          ]
+        ]
+      },
+      "rag": {
+        "context_chars": 1138
+      },
+      "decision": {
+        "recommended_crop": "Invalid Input",
+        "model_used": "llama-3.3-70b-versatile",
+        "validation_status": "Invalid",
+        "environmental": "Suboptimal",
+        "ml_review_status": "Invalid",
+        "confidence_level": "Low"
+      }
+    },
+    "disagreements": {
+      "ml_vs_market": true,
+      "final_vs_ml": false,
+      "llm_blocked_ml": true,
+      "weather_poor_but_recommended": false
+    },
+    "disagreement_count": 2,
+    "quality": {
+      "score": 60,
+      "breakdown": [
+        "ML confidence 51.5% -> 15/30",
+        "structured fields parsed -> 20/20",
+        "decisive block of invalid input (+15)",
+        "real LLM used (+10)"
+      ]
+    },
+    "final_recommendation": "Invalid Input",
+    "llm_response": "Validation Status: Invalid\n\nIssues Found:\n- Temperature is high (34.19\u00b0C) and may cause heat stress\n- Rainfall is low (300 mm) and may lead to drought risk\n- Nitrogen (N), Phosphorus (P), and Potassium (K) levels are extremely low (< 10)\n\nEnvironmental Assessment: Suboptimal\n\nFinal Recommendation:\nRecommended Crop: Invalid Input\n\nReasoning:\n- Soil: Slightly acidic soil pH may not be a significant issue, but low N, P, and K levels are a concern\n- Weather: High temperature and low rainfall may lead to heat stress and drought risk\n- Market: Coffee and mango are profitable options, but the current environmental conditions are not suitable\n\nML Prediction Review:\n- Status: Caveats\n- Reason: ML prediction is unreliable \u2014 input conditions are not valid for any crop growth. The predicted crop, mango, requires optimal temperature (20\u201327 \u00b0C) and rainfall (600\u20131200 mm) which are not met in the current conditions.\n\nSuggested Fixes:\n- Increase rainfall through irrigation to at least 600 mm\n- Apply fertilizers to improve N, P, and K levels\n- Consider using shade nets or other heat stress mitigation strategies to reduce temperature\n\nConfidence Level: Low",
+    "tool_calls": {
+      "weather_api (OpenWeatherMap HTTP GET)": 1,
+      "ml_inference (RandomForest.predict_proba)": 1,
+      "csv_read (market_prices.csv)": 1,
+      "vector_search (ChromaDB query)": 1,
+      "llm_completion (Groq/OpenAI chat)": 1
+    },
+    "tool_calls_total": 5
+  },
+  {
+    "case": "invalid_extreme_ph_low_npk",
+    "input": {
+      "soil": {
+        "N": 2,
+        "P": 3,
+        "K": 4,
+        "temperature": 39.85,
+        "humidity": 19,
+        "ph": 12.0,
+        "rainfall": 50
+      },
+      "location": "Delhi",
+      "user_query": ""
+    },
+    "timings_sec": {
+      "weather": 0.272,
+      "crop_prediction": 0.053,
+      "market": 0.003,
+      "rag": 0.026,
+      "decision": 1.891,
+      "TOTAL": 2.246
+    },
+    "decisions": {
+      "weather": {
+        "source": "openweathermap",
+        "temperature": 39.85,
+        "humidity": 19,
+        "suitability": "poor \u2013 very low humidity \u2013 moisture stress likely"
+      },
+      "crop_prediction": {
+        "top_prediction": "mothbeans",
+        "confidence": 0.28,
+        "top_crops": [
+          [
+            "mothbeans",
+            0.28
+          ],
+          [
+            "kidneybeans",
+            0.225
+          ],
+          [
+            "chickpea",
+            0.17
+          ]
+        ]
+      },
+      "market": {
+        "best_market_crop": "kidneybeans",
+        "ranking": [
+          [
+            "kidneybeans",
+            0.5833
+          ],
+          [
+            "chickpea",
+            0.45
+          ],
+          [
+            "mothbeans",
+            0.26
+          ]
+        ]
+      },
+      "rag": {
+        "context_chars": 899
+      },
+      "decision": {
+        "recommended_crop": "Invalid Input",
+        "model_used": "llama-3.3-70b-versatile",
+        "validation_status": "Invalid",
+        "environmental": "Extreme",
+        "ml_review_status": "Invalid",
+        "confidence_level": "Low"
+      }
+    },
+    "disagreements": {
+      "ml_vs_market": true,
+      "final_vs_ml": false,
+      "llm_blocked_ml": true,
+      "weather_poor_but_recommended": false
+    },
+    "disagreement_count": 2,
+    "quality": {
+      "score": 53,
+      "breakdown": [
+        "ML confidence 28.0% -> 8/30",
+        "structured fields parsed -> 20/20",
+        "decisive block of invalid input (+15)",
+        "real LLM used (+10)"
+      ]
+    },
+    "final_recommendation": "Invalid Input",
+    "llm_response": "Validation Status: Invalid\n\nIssues Found:\n- Temperature is extremely high (39.85\u00b0C)\n- Rainfall is very low (50 mm)\n- Soil pH is strongly alkaline (implying pH > 9)\n- Nitrogen (N), Phosphorus (P), and Potassium (K) are extremely low\n\nEnvironmental Assessment: Extreme\n\nFinal Recommendation:\nRecommended Crop: Invalid Input\n\nReasoning:\n- Soil: The strongly alkaline soil pH and low levels of essential nutrients (N, P, K) are not conducive to healthy crop growth.\n- Weather: The extremely high temperature and very low rainfall pose significant risks of heat stress and drought, respectively.\n- Market: While kidneybeans are the most profitable crop in the market, the current environmental conditions are not suitable for their growth.\n\nML Prediction Review:\n- Status: Unreliable\n- Reason: ML prediction is unreliable \u2014 input conditions are not valid for any crop growth. The predicted crops (mothbeans, kidneybeans, chickpea) may not thrive in these extreme conditions.\n\nSuggested Fixes:\n- Reduce temperature to a range of 20-35\u00b0C\n- Increase rainfall to at least 500 mm\n- Adjust soil pH to a range of 5-8\n- Apply fertilizers to increase N, P, and K levels\n\nConfidence Level: Low",
+    "tool_calls": {
+      "weather_api (OpenWeatherMap HTTP GET)": 1,
+      "ml_inference (RandomForest.predict_proba)": 1,
+      "csv_read (market_prices.csv)": 1,
+      "vector_search (ChromaDB query)": 1,
+      "llm_completion (Groq/OpenAI chat)": 1
+    },
+    "tool_calls_total": 5
+  },
+  {
+    "case": "valid_with_user_query",
+    "input": {
+      "soil": {
+        "N": 85,
+        "P": 55,
+        "K": 45,
+        "temperature": 28.42,
+        "humidity": 60,
+        "ph": 6.8,
+        "rainfall": 900
+      },
+      "location": "Hyderabad",
+      "user_query": "What fertilizer schedule should I follow?"
+    },
+    "timings_sec": {
+      "weather": 0.17,
+      "crop_prediction": 0.044,
+      "market": 0.007,
+      "rag": 0.742,
+      "decision": 1.012,
+      "TOTAL": 1.975
+    },
+    "decisions": {
+      "weather": {
+        "source": "openweathermap",
+        "temperature": 28.42,
+        "humidity": 60,
+        "suitability": "excellent \u2013 ideal growing conditions"
+      },
+      "crop_prediction": {
+        "top_prediction": "maize",
+        "confidence": 0.36,
+        "top_crops": [
+          [
+            "maize",
+            0.36
+          ],
+          [
+            "coffee",
+            0.275
+          ],
+          [
+            "jute",
+            0.27
+          ]
+        ]
+      },
+      "market": {
+        "best_market_crop": "coffee",
+        "ranking": [
+          [
+            "coffee",
+            1.0
+          ],
+          [
+            "maize",
+            0.56
+          ],
+          [
+            "jute",
+            0.3167
+          ]
+        ]
+      },
+      "rag": {
+        "context_chars": 736
+      },
+      "decision": {
+        "recommended_crop": "maize",
+        "model_used": "llama-3.3-70b-versatile",
+        "validation_status": "Valid",
+        "environmental": "Optimal",
+        "ml_review_status": "Valid",
+        "confidence_level": "Medium"
+      }
+    },
+    "disagreements": {
+      "ml_vs_market": true,
+      "final_vs_ml": false,
+      "llm_blocked_ml": false,
+      "weather_poor_but_recommended": false
+    },
+    "disagreement_count": 1,
+    "quality": {
+      "score": 71,
+      "breakdown": [
+        "ML confidence 36.0% -> 11/30",
+        "final == ML (+15)",
+        "structured fields parsed -> 20/20",
+        "concrete crop recommended (+15)",
+        "real LLM used (+10)"
+      ]
+    },
+    "final_recommendation": "maize",
+    "llm_response": "Validation Status: Valid\n\nIssues Found:\n- None\n\nEnvironmental Assessment: Optimal\n\nFinal Recommendation:\nRecommended Crop: Maize\n\nReasoning:\n- Soil: The neutral soil pH is suitable for maize cultivation, which prefers a slightly acidic to neutral soil pH (around 6.0-7.0).\n- Weather: The temperature of 28.42\u00b0C and humidity of 60% are within the optimal range for maize growth, which prefers warm temperatures and moderate humidity.\n- Market: Although coffee is the most profitable crop, maize is a strong alternative with a rising trend and can be a good choice considering the environmental conditions.\n\nML Prediction Review:\n- Status: Caveats\n- Reason: The ML model predicts maize as the top crop, but it's essential to consider the specific growing conditions and market trends. Maize is a suitable crop for the given conditions, but the farmer should be aware of the potential for high temperatures to affect yield and the need for balanced fertilization.\n\nSuggested Fixes:\n- None required, but the farmer should ensure a balanced fertilization approach, combining organic manure with chemical fertilizers, and consider applying zinc sulfate if the soil is zinc-deficient.\n\nConfidence Level: Medium",
+    "tool_calls": {
+      "weather_api (OpenWeatherMap HTTP GET)": 1,
+      "ml_inference (RandomForest.predict_proba)": 1,
+      "csv_read (market_prices.csv)": 1,
+      "vector_search (ChromaDB query)": 2,
+      "llm_completion (Groq/OpenAI chat)": 2
+    },
+    "tool_calls_total": 7
+  }
+]

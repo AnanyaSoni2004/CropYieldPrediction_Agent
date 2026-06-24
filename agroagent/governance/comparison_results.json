@@ -1,0 +1,235 @@
+{
+  "audit_chain_verified": true,
+  "cases": [
+    {
+      "case": "valid_humid_coastal",
+      "before_recommendation": "jute",
+      "after_status": "ALLOW",
+      "after_recommendation": "jute",
+      "governance_changed_outcome": false,
+      "consensus": "APPROVE",
+      "consensus_score": 1.0,
+      "policy_pass": true,
+      "votes": [
+        {
+          "agent": "crop_agent",
+          "decision": "APPROVE",
+          "drift": false
+        },
+        {
+          "agent": "weather_agent",
+          "decision": "APPROVE",
+          "drift": false
+        },
+        {
+          "agent": "market_agent",
+          "decision": "APPROVE",
+          "drift": false
+        },
+        {
+          "agent": "llm_agent",
+          "decision": "APPROVE",
+          "drift": false
+        }
+      ],
+      "trust_in": {
+        "crop_agent": 1.0,
+        "weather_agent": 1.0,
+        "market_agent": 1.0,
+        "llm_agent": 1.0
+      },
+      "trust_out": {
+        "crop_agent": 0.9576,
+        "weather_agent": 0.9576,
+        "market_agent": 0.9576,
+        "llm_agent": 0.9576
+      },
+      "audit_hash": "c89b0588561054cdf66d4ab3250fb99a0e476da7c48989184ba2d7c9c10a2fba",
+      "elapsed_sec": 14.459
+    },
+    {
+      "case": "valid_high_npk_neutral",
+      "before_recommendation": "banana",
+      "after_status": "ALLOW",
+      "after_recommendation": "banana",
+      "governance_changed_outcome": false,
+      "consensus": "APPROVE",
+      "consensus_score": 0.75,
+      "policy_pass": true,
+      "votes": [
+        {
+          "agent": "crop_agent",
+          "decision": "REJECT",
+          "drift": false
+        },
+        {
+          "agent": "weather_agent",
+          "decision": "APPROVE",
+          "drift": false
+        },
+        {
+          "agent": "market_agent",
+          "decision": "APPROVE",
+          "drift": false
+        },
+        {
+          "agent": "llm_agent",
+          "decision": "APPROVE",
+          "drift": false
+        }
+      ],
+      "trust_in": {
+        "crop_agent": 0.9576,
+        "weather_agent": 0.9576,
+        "market_agent": 0.9576,
+        "llm_agent": 0.9576
+      },
+      "trust_out": {
+        "crop_agent": 0.9009,
+        "weather_agent": 0.9194,
+        "market_agent": 0.9194,
+        "llm_agent": 0.9194
+      },
+      "audit_hash": "78c2a8384e7dda901d8a3b3f26d15283f2c769f059d03ba81e1a5f06d7a219db",
+      "elapsed_sec": 1.347
+    },
+    {
+      "case": "suboptimal_drought",
+      "before_recommendation": "Invalid Input",
+      "after_status": "BLOCK",
+      "after_recommendation": "Withheld \u2014 needs review",
+      "governance_changed_outcome": true,
+      "consensus": "REJECT",
+      "consensus_score": 0.4975,
+      "policy_pass": false,
+      "votes": [
+        {
+          "agent": "crop_agent",
+          "decision": "APPROVE",
+          "drift": false
+        },
+        {
+          "agent": "weather_agent",
+          "decision": "APPROVE",
+          "drift": false
+        },
+        {
+          "agent": "market_agent",
+          "decision": "REJECT",
+          "drift": false
+        },
+        {
+          "agent": "llm_agent",
+          "decision": "REJECT",
+          "drift": false
+        }
+      ],
+      "trust_in": {
+        "crop_agent": 0.9009,
+        "weather_agent": 0.9194,
+        "market_agent": 0.9194,
+        "llm_agent": 0.9194
+      },
+      "trust_out": {
+        "crop_agent": 0.8506,
+        "weather_agent": 0.8648,
+        "market_agent": 0.8849,
+        "llm_agent": 0.8849
+      },
+      "audit_hash": "068cd7d2bb52ad32c82eac62ccf75ad17807e9804b60b70464487d6485a200a4",
+      "elapsed_sec": 1.343
+    },
+    {
+      "case": "invalid_extreme_ph_low_npk",
+      "before_recommendation": "Invalid Input",
+      "after_status": "BLOCK",
+      "after_recommendation": "Withheld \u2014 needs review",
+      "governance_changed_outcome": true,
+      "consensus": "REJECT",
+      "consensus_score": 0.0,
+      "policy_pass": false,
+      "votes": [
+        {
+          "agent": "crop_agent",
+          "decision": "REJECT",
+          "drift": false
+        },
+        {
+          "agent": "weather_agent",
+          "decision": "REJECT",
+          "drift": false
+        },
+        {
+          "agent": "market_agent",
+          "decision": "REJECT",
+          "drift": false
+        },
+        {
+          "agent": "llm_agent",
+          "decision": "REJECT",
+          "drift": false
+        }
+      ],
+      "trust_in": {
+        "crop_agent": 0.8506,
+        "weather_agent": 0.8648,
+        "market_agent": 0.8849,
+        "llm_agent": 0.8849
+      },
+      "trust_out": {
+        "crop_agent": 0.8229,
+        "weather_agent": 0.8357,
+        "market_agent": 0.8538,
+        "llm_agent": 0.8538
+      },
+      "audit_hash": "993e2ff866b2477d0a6f3cc12f527e5beb6e3ebc0b71f5e6c6d403828cd790c3",
+      "elapsed_sec": 1.539
+    },
+    {
+      "case": "valid_with_user_query",
+      "before_recommendation": "maize",
+      "after_status": "ALLOW",
+      "after_recommendation": "maize",
+      "governance_changed_outcome": false,
+      "consensus": "APPROVE",
+      "consensus_score": 1.0,
+      "policy_pass": true,
+      "votes": [
+        {
+          "agent": "crop_agent",
+          "decision": "APPROVE",
+          "drift": false
+        },
+        {
+          "agent": "weather_agent",
+          "decision": "APPROVE",
+          "drift": false
+        },
+        {
+          "agent": "market_agent",
+          "decision": "APPROVE",
+          "drift": false
+        },
+        {
+          "agent": "llm_agent",
+          "decision": "APPROVE",
+          "drift": false
+        }
+      ],
+      "trust_in": {
+        "crop_agent": 0.8229,
+        "weather_agent": 0.8357,
+        "market_agent": 0.8538,
+        "llm_agent": 0.8538
+      },
+      "trust_out": {
+        "crop_agent": 0.7979,
+        "weather_agent": 0.8095,
+        "market_agent": 0.8258,
+        "llm_agent": 0.8258
+      },
+      "audit_hash": "c19f468fdbd89158752fa92f7413f70e9fef32a028d6a85e9f2dc6dd7fd9daf9",
+      "elapsed_sec": 1.656
+    }
+  ]
+}
