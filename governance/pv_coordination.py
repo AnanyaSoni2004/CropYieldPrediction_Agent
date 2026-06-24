@@ -27,13 +27,16 @@ from datetime import datetime, timezone
 from typing import Any
 
 # ---------------------------------------------------------------------------
-# Locate the sibling PrivateVault.ai checkout and import its coordination layer
+# Make PrivateVault's `coordination` package importable.
+# Prefer the vendored copy at the repo root (so the deployed app works without the
+# full PrivateVault.ai checkout); also add a sibling PrivateVault.ai/ checkout when
+# present (local development). See coordination/NOTICE.md for provenance.
 # ---------------------------------------------------------------------------
 
 _REPO_ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__), ".."))
-_PV_ROOT = os.path.join(_REPO_ROOT, "PrivateVault.ai")
-if _PV_ROOT not in sys.path:
-    sys.path.insert(0, _PV_ROOT)
+for _p in (_REPO_ROOT, os.path.join(_REPO_ROOT, "PrivateVault.ai")):
+    if os.path.isdir(_p) and _p not in sys.path:
+        sys.path.insert(0, _p)
 
 from coordination.mesh.drift_aware_quorum import DriftAwareQuorum     # noqa: E402
 from coordination.mesh.trust_registry import TrustRegistry            # noqa: E402
