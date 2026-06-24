@@ -1,2 +1,12 @@
+# External clone (separate git repo) — never commit into this repo
 PrivateVault.ai/
+
+# Python
+__pycache__/
+*.pyc
+
+# Secrets / data / runtime state
+.env
+chroma_db/
+governance/state/
 .DS_Store
