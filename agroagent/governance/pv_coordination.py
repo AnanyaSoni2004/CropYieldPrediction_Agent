@@ -216,6 +216,26 @@ class CoordinationGovernor:
                        "policy_violation": (not policy_pass and v["decision"] == "APPROVE")}
             trust_out[v["agent_id"]] = self._trust.update_trust(v["agent_id"], outcome)
 
+        # Supporting evidence (for audit / explainability)
+        weather = state.get("weather_result", {})
+        m_conf = re.search(r"confidence level\s*:\s*(\w+)",
+                           state["final_recommendation"].get("llm_response", ""), re.IGNORECASE)
+        evidence = {
+            "ml_top_crops": [(c["crop"], c["confidence"])
+                             for c in state["crop_result"]["top_crops"]],
+            "ml_confidence": request["ml_confidence"],
+            "llm_confidence_level": m_conf.group(1) if m_conf else None,
+            "llm_model": state["final_recommendation"].get("model_used"),
+            "validation_status": request["validation_status"] or "Valid",
+            "weather": {"source": weather.get("source"),
+                        "suitability": weather.get("suitability"),
+                        "temperature": weather.get("temperature"),
+                        "humidity": weather.get("humidity")},
+            "market": {"best_crop": request["market_best_crop"],
+                       "score": request["market_score"]},
+            "rag_excerpt": (state.get("rag_context", "") or "")[:240].replace("\n", " "),
+        }
+
         # 6. AUDIT LOGGING — hash-chained, append-only ledger entry
         audit = self._append_audit({
             "action_id": action_id,
@@ -230,6 +250,7 @@ class CoordinationGovernor:
             "trust_in": trust_in,
             "trust_out": trust_out,
             "trust_snapshot_hash": self._trust.snapshot_hash(),
+            "evidence": evidence,
         })
 
         # governed crop: surfaced only when ALLOWed
@@ -250,6 +271,7 @@ class CoordinationGovernor:
             "ungoverned_crop": request["recommended_crop"],
             "trust_in": trust_in,
             "trust_out": trust_out,
+            "evidence": evidence,
             "audit": audit,
         }
 
@@ -290,6 +312,74 @@ class CoordinationGovernor:
                     except Exception:
                         pass
         return last
+
+
+    # -- crop-level conflict resolution --------------------------------
+
+    def govern_conflict(self, nominations: dict[str, str],
+                        quorum_frac: float = 0.5) -> dict:
+        """
+        Resolve a conflict where agents nominate DIFFERENT crops, using
+        PrivateVault's trust-weighted consensus.
+
+        nominations : {agent_id: nominated_crop}
+        Returns a resolution record (consensus crop or ESCALATE) and audits it.
+        """
+        trust_in = {a: float(self._trust.get_weight(a)) for a in nominations}
+        resolution = resolve_crop_conflict(nominations, trust_in, quorum_frac)
+
+        # trust update: agents aligned with the winning crop are "correct"
+        winner = resolution["winner"]
+        trust_out = {}
+        for agent, crop in nominations.items():
+            correct = (winner is not None and crop == winner)
+            trust_out[agent] = self._trust.update_trust(
+                agent, {"correct": correct, "policy_violation": False})
+
+        audit = self._append_audit({
+            "mode": "conflict_resolution",
+            "nominations": nominations,
+            "trust_in": trust_in,
+            "resolution": resolution,
+            "trust_out": trust_out,
+            "trust_snapshot_hash": self._trust.snapshot_hash(),
+        })
+        return {**resolution, "trust_in": trust_in, "trust_out": trust_out, "audit": audit}
+
+
+def resolve_crop_conflict(nominations: dict[str, str], trust_in: dict[str, float],
+                          quorum_frac: float = 0.5) -> dict:
+    """
+    Trust-weighted plurality over nominated crops, via PrivateVault's
+    coordination.mesh.weighted_consensus.compute_weighted_consensus.
+
+    For each candidate crop, agents nominating it vote True (weighted by trust);
+    the crop with the most trust-weight wins IF it clears the quorum fraction of
+    total trust — otherwise the conflict is ESCALATEd (no safe consensus).
+    """
+    candidates = sorted(set(nominations.values()))
+    per_crop = {}
+    for c in candidates:
+        wc = compute_weighted_consensus([
+            {"agent_id": a, "vote": (nom == c), "weight": float(trust_in.get(a, 1.0))}
+            for a, nom in nominations.items()
+        ])
+        per_crop[c] = {
+            "support_weight": round(wc["score"] * wc["total_weight"], 4),
+            "support_frac":   round(wc["score"], 4),
+            "backers":        [a for a, nom in nominations.items() if nom == c],
+        }
+    winner = max(per_crop, key=lambda c: per_crop[c]["support_weight"])
+    win_frac = per_crop[winner]["support_frac"]
+    resolved = win_frac >= quorum_frac
+    return {
+        "candidates":     candidates,
+        "per_crop":       per_crop,
+        "winner":         winner if resolved else None,
+        "consensus_frac": win_frac,
+        "quorum_frac":    quorum_frac,
+        "status":         "RESOLVED" if resolved else "ESCALATE",
+    }
 
 
 def verify_audit_chain(audit_path: str = AUDIT_LEDGER_PATH) -> bool:
