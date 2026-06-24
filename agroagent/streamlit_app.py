@@ -347,6 +347,13 @@ def load_orchestrator():
 
 
 @st.cache_resource(show_spinner=False)
+def load_governor():
+    """PrivateVault coordination governor (consensus / trust / validation / audit)."""
+    from governance.pv_coordination import CoordinationGovernor, verify_audit_chain
+    return CoordinationGovernor(), verify_audit_chain
+
+
+@st.cache_resource(show_spinner=False)
 def load_rag_agent():
     from agents.rag_knowledge_agent import RAGKnowledgeAgent
     return RAGKnowledgeAgent()
@@ -384,6 +391,72 @@ def soil_badge(status: str) -> str:
     return badge(status.title(), lvl)
 
 
+def render_governance_panel(gov: dict, verify_chain) -> None:
+    """Render the PrivateVault Decision Security panel for one governed decision."""
+    allow = gov["final_status"] == "ALLOW"
+    flags = gov.get("context_flags", [])
+
+    st.markdown('<div class="section-header">PrivateVault Decision Security</div>', unsafe_allow_html=True)
+
+    verdict_color = "#059669" if allow else "#b91c1c"
+    verdict_text = "ALLOW" if allow else "BLOCK"
+    sub = ("Strong consensus — recommendation cleared to surface." if allow
+           else f"Recommendation withheld — {gov['policy_reason']}")
+    st.markdown(f"""
+    <div class="glass-card animate-in" style="border-left:4px solid {verdict_color};">
+        <div style="display:flex;align-items:center;gap:12px;">
+            <span style="font-size:1.4rem;font-weight:800;color:{verdict_color};">{verdict_text}</span>
+            <span style="color:#94a3b8;">consensus
+                <strong style="color:#ecfdf5;">{gov['consensus']}</strong>
+                ({gov['consensus_score']*100:.0f}% trust-weighted) ·
+                policy gate <strong style="color:#ecfdf5;">{'PASS' if gov['policy_pass'] else 'FAIL'}</strong>
+            </span>
+        </div>
+        <div style="margin-top:6px;color:#94a3b8;font-size:0.88rem;">{sub}</div>
+    </div>
+    """, unsafe_allow_html=True)
+
+    # Security alert if the knowledge context was compromised (injection/poison)
+    if flags:
+        flag_lines = "".join(f"<li>{f}</li>" for f in flags)
+        st.markdown(f"""
+        <div class="glass-card" style="border-left:4px solid #b91c1c;background:rgba(239,68,68,0.06);">
+            <strong style="color:#fca5a5;">⚠ Compromised context detected — {len(flags)} threat flag(s).</strong>
+            <span style="color:#94a3b8;"> The knowledge context contained injection/poison patterns,
+            so the LLM agent was quarantined and validation was treated as untrusted.</span>
+            <ul style="color:#fca5a5;font-size:0.85rem;margin:8px 0 0 0;">{flag_lines}</ul>
+        </div>
+        """, unsafe_allow_html=True)
+
+    # Per-agent votes + trust
+    st.markdown("**Agent consensus** — trust-weighted votes")
+    rows = []
+    for v in gov["votes"]:
+        a = v["agent_id"]
+        rows.append({
+            "Agent": a,
+            "Vote": ("⛔ quarantined" if v["context"].get("drift") else
+                     ("✅ APPROVE" if v["decision"] == "APPROVE" else "❌ REJECT")),
+            "Trust": f"{gov['trust_in'][a]:.3f} → {gov['trust_out'][a]:.3f}",
+            "Reason": v["reason"],
+        })
+    st.dataframe(pd.DataFrame(rows), use_container_width=True, hide_index=True)
+
+    # Audit
+    chain_ok = False
+    try:
+        chain_ok = verify_chain()
+    except Exception:
+        pass
+    audit = gov.get("audit", {})
+    st.caption(
+        f"🔗 Audit entry `{audit.get('entry_hash','')[:16]}…` "
+        f"(prev `{audit.get('prev_hash','')[:8]}…`) · "
+        f"chain integrity: {'✅ verified' if chain_ok else '❌ broken'} · "
+        f"threshold {gov.get('threshold')}, active trust {gov.get('active_trust')}"
+    )
+
+
 # ---------------------------------------------------------------------------
 # Sidebar
 # ---------------------------------------------------------------------------
@@ -405,6 +478,17 @@ with st.sidebar:
     )
 
     st.markdown("---")
+    governance_enabled = st.toggle(
+        "PrivateVault Governance",
+        value=True,
+        help="Runs trust-weighted consensus, an independent confidence/validation gate, "
+             "prompt-injection & poison detection, and a tamper-evident audit on every "
+             "recommendation. Turn off to see the ungoverned baseline.",
+    )
+    st.caption(
+        "🛡️ Decision Security: **ON**" if governance_enabled
+        else "⚠️ Decision Security: **OFF** (ungoverned baseline)"
+    )
     st.markdown("""
     <div style="padding:12px; background:rgba(255,255,255,0.03); border-radius:12px; border:1px solid rgba(74,222,128,0.1);">
         <div style="font-size:0.7rem; color:#6ee7b7; text-transform:uppercase; letter-spacing:1px; font-weight:600; margin-bottom:6px;">Powered By</div>
@@ -504,18 +588,36 @@ if page == "Crop Recommendation":
         if weather_result.get("warning"):
             st.warning(f"Weather: {weather_result['warning']}")
 
+        # ---- PrivateVault governance (consensus / trust / validation / audit) ----
+        governance = None
+        if governance_enabled:
+            with st.spinner("Applying PrivateVault governance: consensus, trust, threat-scan, audit"):
+                try:
+                    governor, verify_chain = load_governor()
+                    governance = governor.govern(state)
+                except Exception as e:
+                    st.warning(f"Governance layer unavailable: {e}")
+
         st.markdown("---")
 
         is_invalid = rec["recommended_crop"].lower() in ("invalid input", "no suitable crop")
+        gov_block = bool(governance and governance["final_status"] == "BLOCK")
+        withhold = is_invalid or gov_block
 
         # ---- Hero: Recommended Crop ----
-        if is_invalid:
+        if withhold:
+            if gov_block and not is_invalid:
+                hero_title = "Withheld — needs review"
+                hero_sub = f"PrivateVault gate: {governance['policy_reason']}"
+            else:
+                hero_title = rec["recommended_crop"].title()
+                hero_sub = "Input validation failed — see report below"
             st.markdown(f"""
             <div class="crop-hero animate-in" style="background:linear-gradient(135deg,#7f1d1d,#991b1b);">
-                <div style="font-size:0.9rem;color:#fca5a5;text-transform:uppercase;letter-spacing:2px;font-weight:600;">Recommendation</div>
-                <h1 style="color:#fecaca;">{rec['recommended_crop'].title()}</h1>
+                <div style="font-size:0.9rem;color:#fca5a5;text-transform:uppercase;letter-spacing:2px;font-weight:600;">Recommendation {'(gated)' if gov_block else ''}</div>
+                <h1 style="color:#fecaca;">{hero_title}</h1>
                 <div class="confidence-badge" style="background:rgba(239,68,68,0.2);color:#fca5a5;">
-                    Input validation failed — see report below
+                    {hero_sub}
                 </div>
             </div>
             """, unsafe_allow_html=True)
@@ -542,7 +644,11 @@ if page == "Crop Recommendation":
 
         st.markdown("")
 
-        if not is_invalid:
+        # ---- PrivateVault Decision Security panel ----
+        if governance:
+            render_governance_panel(governance, verify_chain)
+
+        if not withhold:
             # ---- Top Predictions ----
             st.markdown('<div class="section-header">Top Crop Predictions</div>', unsafe_allow_html=True)
             pred_cols = st.columns(len(crop_result["top_crops"]))

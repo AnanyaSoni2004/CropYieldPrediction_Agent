@@ -37,10 +37,21 @@ def detect_poison(text: str) -> list[str]:
     flags: list[str] = []
     low = text.lower()
 
-    # 1. Implausible fertilizer / nutrient doses
+    # 1. Implausible fertilizer / NUTRIENT doses.
+    #    kg/ha is also used for gypsum, lime, manure, seed rate, and YIELD — so only
+    #    flag a high rate when it is tied to a nutrient term and not a benign one.
+    nutrient_terms = ("urea", "nitrogen", "phosph", "potass", "fertiliz",
+                      "npk", " dap", " mop", "ammonium")
+    benign_rate    = ("gypsum", "lime", "manure", "compost", "fym", "seed rate",
+                      "yield", "pods", "biomass", "produce")
     for m in re.finditer(r"(\d{2,5})\s*kg\s*/?\s*ha", low):
         dose = int(m.group(1))
-        if dose > MAX_SAFE_DOSE_KG_HA:
+        if dose <= MAX_SAFE_DOSE_KG_HA:
+            continue
+        ctx = low[max(0, m.start() - 60): m.end() + 25]
+        if any(b in ctx for b in benign_rate):
+            continue   # gypsum/lime/manure/seed-rate/yield — legitimate high rate
+        if any(t in ctx for t in nutrient_terms):
             flags.append(f"implausible nutrient dose: {dose} kg/ha "
                          f"(safe ≤ {MAX_SAFE_DOSE_KG_HA})")
 

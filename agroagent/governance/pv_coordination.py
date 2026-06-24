@@ -41,6 +41,9 @@ from coordination.mesh.decision_engine import MeshDecisionEngine      # noqa: E4
 from coordination.mesh.weighted_consensus import compute_weighted_consensus  # noqa: E402
 from coordination.trust.trust_engine import TrustEngine               # noqa: E402
 
+from governance.injection_detector import detect_injection            # noqa: E402
+from governance.poison_detector import detect_poison                  # noqa: E402
+
 # Local, writable state (trust ledger + audit chain) — kept inside agroagent.
 _STATE_DIR = os.path.join(os.path.dirname(__file__), "state")
 os.makedirs(_STATE_DIR, exist_ok=True)
@@ -179,11 +182,22 @@ class CoordinationGovernor:
         for a, w in trust_in.items():
             registry.set_score(a, w)
 
+        # CONTENT-THREAT SCAN — the knowledge context that feeds the LLM may be
+        # poisoned (false facts) or injected (adversarial instructions). If so the
+        # llm_agent is treated as COMPROMISED: its vote is quarantined (drift) and
+        # the policy gate hard-fails, because its validation can no longer be trusted.
+        rag_ctx = state.get("rag_context", "") or ""
+        context_flags = detect_injection(rag_ctx) + detect_poison(rag_ctx)
+        context_compromised = bool(context_flags)
+
         # 2. DECISION VALIDATION — each agent reasons under policy
         votes: list[dict] = []
         for agent in VOTERS:
             decision, reason = self._policy.evaluate(agent, request)
             ctx = _drift_context(agent, request)
+            if agent == "llm_agent" and context_compromised:
+                ctx = {"drift": True,
+                       "reason": f"context compromised: {len(context_flags)} injection/poison flag(s)"}
             votes.append({"agent_id": agent, "decision": decision,
                           "reason": reason, "context": ctx})
 
@@ -206,6 +220,10 @@ class CoordinationGovernor:
 
         # 4. EXECUTION APPROVAL — system-level policy gate (demo_one_flow pattern)
         policy_pass, policy_reason = self._system_policy(request)
+        if context_compromised:
+            policy_pass = False
+            policy_reason = (f"compromised context — {len(context_flags)} injection/poison "
+                             f"flag(s); LLM validation untrusted")
         final_status = "ALLOW" if (consensus == "APPROVE" and policy_pass) else "BLOCK"
 
         # 5. TRUST UPDATE — agents rewarded/penalised vs. the consensus outcome
@@ -234,6 +252,7 @@ class CoordinationGovernor:
             "market": {"best_crop": request["market_best_crop"],
                        "score": request["market_score"]},
             "rag_excerpt": (state.get("rag_context", "") or "")[:240].replace("\n", " "),
+            "context_threat_flags": context_flags,
         }
 
         # 6. AUDIT LOGGING — hash-chained, append-only ledger entry
@@ -266,6 +285,8 @@ class CoordinationGovernor:
             "active_trust": round(active_trust, 4),
             "policy_pass": policy_pass,
             "policy_reason": policy_reason,
+            "context_compromised": context_compromised,
+            "context_flags": context_flags,
             "final_status": final_status,
             "governed_crop": governed_crop,
             "ungoverned_crop": request["recommended_crop"],
